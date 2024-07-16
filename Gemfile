@@ -38,6 +38,7 @@ group :development, :test do
 
   # rspec
   gem 'rspec-rails', '~> 6.1.0'
+  gem 'rubocop', '~> 1.65', require: false
 end
 
 group :test do
