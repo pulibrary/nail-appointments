@@ -1,0 +1,5 @@
+name: nails-appointment
+services:
+  database:
+    type: postgres:15
+    portforward: true

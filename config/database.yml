@@ -14,10 +14,15 @@
 #
 default: &default
   adapter: postgresql
-  encoding: unicode
-  # For details on connection pooling, see Rails configuration guide
-  # https://guides.rubyonrails.org/configuring.html#database-pooling
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  encoding: utf8
+  min_messages: warning
+  pool: <%= Integer(ENV.fetch("DB_POOL", 40)) %>
+  reaping_frequency: <%= Integer(ENV.fetch("DB_REAPING_FREQUENCY", 10)) %>
+  timeout: 5000
+  host: <%= ENV["lando_database_conn_host"] || "localhost" %>
+  port: <%= ENV["lando_database_conn_port"] || 5432 %>
+  username: <%= ENV["lando_database_creds_user"] %>
+  password: <%= ENV["lando_database_creds_password"] %>
 
 development:
   <<: *default
@@ -77,8 +82,8 @@ test:
 # Read https://guides.rubyonrails.org/configuring.html#configuring-a-database
 # for a full overview on how database connection configuration can be specified.
 #
-production:
-  <<: *default
-  database: nail_appointments_production
-  username: nail_appointments
-  password: <%= ENV["NAIL_APPOINTMENTS_DATABASE_PASSWORD"] %>
+# production:
+#   <<: *default
+#   database: nail_appointments_production
+#   username: nail_appointments
+#   password: <%= ENV["NAIL_APPOINTMENTS_DATABASE_PASSWORD"] %>

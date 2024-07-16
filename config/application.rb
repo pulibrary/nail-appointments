@@ -1,6 +1,8 @@
 require_relative "boot"
 
 require "rails"
+require_relative "lando_env"
+
 # Pick the frameworks you want:
 require "active_model/railtie"
 require "active_job/railtie"
