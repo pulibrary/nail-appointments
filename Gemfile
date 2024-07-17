@@ -32,10 +32,10 @@ gem "bootsnap", require: false
 
 gem 'bootstrap', '~> 5.3', '>= 5.3.2'
 
-#sass engine for bootstrap
+# sass engine for bootstrap
 gem 'dartsass-sprockets'
 
-#encrypt password
+# encrypt password
 gem 'bcrypt', '~> 3.1', '>= 3.1.20'
 
 group :development, :test do
@@ -43,9 +43,12 @@ group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
 
   # rspec
+  gem 'byebug', '~> 11.1', '>= 11.1.3'
   gem 'rspec-rails', '~> 6.1.0'
   gem 'rubocop', '~> 1.65', require: false
-  gem 'byebug', '~> 11.1', '>= 11.1.3'
+  gem 'rubocop-rails', require: false
+  gem 'rubocop-rspec', require: false
+  gem 'rubocop-rspec_rails', require: false
 end
 
 group :test do

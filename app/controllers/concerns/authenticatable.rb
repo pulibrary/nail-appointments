@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Authenticatable
   extend ActiveSupport::Concern
 
@@ -6,9 +8,9 @@ module Authenticatable
   end
 
   def authenticate_user
-    unless current_user
-    flash[:alert] = "Please log in."
+    return if current_user
+
+    flash[:alert] = 'Please log in.'
     redirect_to login_path
-    end
   end
 end

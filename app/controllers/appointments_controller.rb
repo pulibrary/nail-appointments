@@ -1,18 +1,21 @@
+# frozen_string_literal: true
+
 class AppointmentsController < ApplicationController
   include Authenticatable
   before_action :set_user
-  before_action :set_appointment, only: [:show, :edit, :update, :destroy]
+  before_action :set_appointment, only: %i[show edit update destroy]
 
   def index
     @appointments = @user.appointments
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @appointment = @user.appointments.build
   end
+
+  def edit; end
 
   def create
     @appointment = @user.appointments.build(appointment_params)
@@ -21,9 +24,6 @@ class AppointmentsController < ApplicationController
     else
       render :new
     end
-  end
-
-  def edit
   end
 
   def update
