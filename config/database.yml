@@ -21,8 +21,8 @@ default: &default
   timeout: 5000
   host: <%= ENV["lando_database_conn_host"] || "localhost" %>
   port: <%= ENV["lando_database_conn_port"] || 5432 %>
-  username: <%= ENV["lando_database_creds_user"] %>
-  password: <%= ENV["lando_database_creds_password"] %>
+  username: <%= ENV["lando_database_creds_user"] || "nailapp" %>
+  password: <%= ENV["lando_database_creds_password"] || "nailapp" %>
 
 development:
   <<: *default
