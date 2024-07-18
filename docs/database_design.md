@@ -15,6 +15,7 @@
 * **pronouns (VARCHAR)**
 * **email (VARCHAR)**
 * **password (VARCHAR)**
+* **role (INT)**
 
 ### availability
 * **id (INT Primary Key)**
