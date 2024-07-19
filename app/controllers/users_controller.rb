@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show edit update destroy ]
+  before_action :set_user, only: %i[ show edit update destroy dashboard]
 
   # GET /users or /users.json
   def index
@@ -55,6 +55,19 @@ class UsersController < ApplicationController
       format.html { redirect_to users_url, notice: "User was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def login
+    @user = User.find_by_email(params[:email])
+    if @user.password == params[:password]
+      give_token
+    else
+      redirect_to '/'
+    end
+  end
+
+  def dashboard
+    
   end
 
   private
