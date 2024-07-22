@@ -1,6 +1,13 @@
 <div class="container text-center">
-    # <img src="img_girl.jpg" alt="Girl in a jacket" width="500" height="600">
+    <!-- <img src="img_girl.jpg" alt="Girl in a jacket" width="500" height="600"> -->
     <h1>Dashboard</h1>
-    <p>Welcome <%= @user.first_name %></p>
-    <p>Click here to make an appointment</p>
+    <% if @user %>
+        <p>Welcome <%= @user.first_name %></p>
+        <p>Click here to make an appointment</p>
+        <%= form_with(url: logout_path, method: :post) do |form| %>
+            <%= form.submit "Log Out" %>
+        <% end %>
+    <% else %>
+        <p>Please login to access your dashboard.</p>
+    <% end %>
 </div>

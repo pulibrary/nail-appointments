@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show edit update destroy dashboard]
+  before_action :authenticate_user, only: %i[ show edit update destroy dashboard]
 
   # GET /users or /users.json
   def index
@@ -57,27 +57,24 @@ class UsersController < ApplicationController
     end
   end
 
-  def login
-    @user = User.find_by_email(params[:email])
-    if @user.password == params[:password]
-      give_token
-    else
-      redirect_to '/'
-    end
-  end
-
   def dashboard
-    
+    @user = current_user
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
-
     # Only allow a list of trusted parameters through.
     def user_params
       params.require(:user).permit(:first_name, :last_name, :pronouns, :email, :password, :role)
+    end
+
+    def current_user
+      @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
+    end
+
+    def authenticate_user
+      unless current_user
+        flash[:alert] = "Please log in."
+        redirect_to login_path
+      end
     end
 end

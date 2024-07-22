@@ -47,6 +47,7 @@ group :development, :test do
   # rspec
   gem 'rspec-rails', '~> 6.1.0'
   gem 'rubocop', '~> 1.65', require: false
+  gem 'byebug', '~> 11.1', '>= 11.1.3'
 end
 
 group :test do
