@@ -1,1 +1,2 @@
-//= require bootstrap
+//= require popper
+//= require bootstrap-sprockets
