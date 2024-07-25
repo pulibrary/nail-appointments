@@ -1,6 +1,7 @@
 require 'rails_helper'
+require_relative '../support/controller_macros.rb'
 
-RSpec.describe UsersController do
+RSpec.describe UsersController, type: :controller do
   let(:valid_attributes) {
     {
       first_name: "Megan",
@@ -15,7 +16,7 @@ RSpec.describe UsersController do
   describe "GET /" do
     it "renders a successful response" do
       User.create! valid_attributes
-      get users_path
+      get :index
       expect(response).to be_successful
     end
   end
@@ -23,22 +24,24 @@ RSpec.describe UsersController do
   describe "GET /show" do
     it "renders a successful response" do
       user = User.create! valid_attributes
-      get user_path(user)
+      login_user(user)  # Call login_user method with the created user
+      get :show, params: { id: user.id }  # Pass the user's ID to show action
       expect(response).to be_successful
     end
   end
 
   describe "GET /new" do
     it "renders a successful response" do
-      get new_user_path
+      get :new
       expect(response).to be_successful
     end
   end
 
   describe "GET /edit" do
     it "renders a successful response" do
-      user = User.create!(valid_attributes)
-      get edit_user_path(user)
+      user = User.create! valid_attributes
+      login_user(user)  # Call login_user method with the created user
+      get :edit, params: { id: user.id }  # Pass the user's ID to show action
       expect(response).to be_successful
     end
   end
