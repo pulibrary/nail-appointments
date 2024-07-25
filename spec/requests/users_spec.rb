@@ -18,42 +18,34 @@ RSpec.describe "/users", type: :request do
   # User. As you add validations to User, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+      first_name: "Megan",
+      last_name: "Lai",
+      pronouns: "she/her",
+      email: "123@default.com",
+      password: "2394jfi",
+      role: 1
+    }
   }
 
   let(:invalid_attributes) {
     skip("Add a hash of attributes invalid for your model")
   }
 
-  describe "GET /index" do
-    it "renders a successful response" do
-      User.create! valid_attributes
-      get users_url
-      expect(response).to be_successful
-    end
-  end
+  it 'creates a user and redirects to the user dashboard' do
+    get "/"
+    expect(response).to render_template(:new)
 
-  describe "GET /show" do
-    it "renders a successful response" do
-      user = User.create! valid_attributes
-      get user_url(user)
-      expect(response).to be_successful
-    end
-  end
-
-  describe "GET /new" do
-    it "renders a successful response" do
-      get new_user_url
-      expect(response).to be_successful
-    end
-  end
-
-  describe "GET /edit" do
-    it "renders a successful response" do
-      user = User.create! valid_attributes
-      get edit_user_url(user)
-      expect(response).to be_successful
-    end
+    post "/users", :params => {
+      :user => {
+        :first_name => "Megan",
+        :last_name => "Lai",
+        :pronouns => "she/her",
+        :email => "123@default.com",
+        :role => 1
+      }
+    }
+    expect(response).to render_template(:dashboard)
   end
 
   describe "POST /create" do
