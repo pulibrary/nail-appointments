@@ -1,6 +1,8 @@
 require 'bcrypt'
 
-class User < ApplicationRecord   
+class User < ApplicationRecord
+    has_many :appointments, dependent: :destroy
+
     before_save :normalize_email
     has_secure_password
     

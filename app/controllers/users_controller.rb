@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  include Authenticatable
   before_action :authenticate_user, only: %i[ show edit update destroy dashboard]
 
   # GET /users or /users.json
@@ -65,16 +66,5 @@ class UsersController < ApplicationController
     # Only allow a list of trusted parameters through.
     def user_params
       params.require(:user).permit(:first_name, :last_name, :pronouns, :email, :password, :role)
-    end
-
-    def current_user
-      @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
-    end
-
-    def authenticate_user
-      unless current_user
-        flash[:alert] = "Please log in."
-        redirect_to login_path
-      end
     end
 end

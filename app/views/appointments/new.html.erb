@@ -4,6 +4,8 @@
 
 <br>
 
-<div>
-  <%= link_to "Back to appointments", appointments_path %>
-</div>
+<% if current_user %>
+  <%= link_to "Back to Dashboard", user_dashboard_path(current_user) %>
+<% else %>
+  <%= link_to "Login", login_path %>
+<% end %>

@@ -5,6 +5,6 @@
 <br>
 
 <div>
-  <%= link_to "Show this appointment", @appointment %> |
-  <%= link_to "Back to appointments", appointments_path %>
+  <%= link_to "Show this appointment", user_appointment_path(@user, @appointment) %> |
+  <%= link_to "Back to Dashboard", user_dashboard_path(current_user) %>
 </div>

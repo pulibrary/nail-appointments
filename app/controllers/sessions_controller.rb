@@ -1,7 +1,8 @@
 # app/controllers/sessions_controller.rb
 class SessionsController < ApplicationController
   def new
-    end
+    @user = User.find_by(email: params[:email])
+  end
   
   def create
     @user = User.find_by(email: params[:email])
