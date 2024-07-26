@@ -130,9 +130,6 @@ GEM
     google-protobuf (4.27.2-aarch64-linux)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.27.2-arm64-darwin)
-      bigdecimal
-      rake (>= 13)
     google-protobuf (4.27.2-x86-linux)
       bigdecimal
       rake (>= 13)
@@ -180,8 +177,6 @@ GEM
     nokogiri (1.16.6-aarch64-linux)
       racc (~> 1.4)
     nokogiri (1.16.6-arm-linux)
-      racc (~> 1.4)
-    nokogiri (1.16.6-arm64-darwin)
       racc (~> 1.4)
     nokogiri (1.16.6-x86-linux)
       racc (~> 1.4)
@@ -281,8 +276,6 @@ GEM
       google-protobuf (~> 4.26)
     sass-embedded (1.77.8-arm-linux-gnueabihf)
       google-protobuf (~> 4.26)
-    sass-embedded (1.77.8-arm64-darwin)
-      google-protobuf (~> 4.26)
     sass-embedded (1.77.8-x86-linux-gnu)
       google-protobuf (~> 4.26)
     sass-embedded (1.77.8-x86_64-darwin)
@@ -325,9 +318,9 @@ GEM
 PLATFORMS
   aarch64-linux
   arm-linux
-  arm64-darwin-23
   x86-linux
   x86_64-darwin
+  x86_64-darwin-23
   x86_64-linux
 
 DEPENDENCIES
@@ -346,9 +339,6 @@ DEPENDENCIES
   rubocop (~> 1.65)
   tzinfo-data
   web-console
-
-RUBY VERSION
-   ruby 3.3.1p55
 
 BUNDLED WITH
    2.5.14
