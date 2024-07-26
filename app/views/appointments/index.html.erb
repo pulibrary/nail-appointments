@@ -1,0 +1,19 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Appointments</h1>
+
+<div id="appointments">
+  <% if @appointments.any? %>
+    <% @appointments.each do |appointment| %>
+      <%= render appointment %>
+      <p>
+        <%= link_to "Show this appointment", user_appointment_path(@user, appointment) %>
+      </p>
+    <% end %>
+  <% else %>
+    <p>No appointments to show.</p>
+  <% end %>
+</div>
+
+<%= link_to "New appointment", new_user_appointment_path(@user) %>
+<%= link_to "Back to Dashboard", user_dashboard_path(@user) %>

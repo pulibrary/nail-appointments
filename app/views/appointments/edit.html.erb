@@ -1,0 +1,10 @@
+<h1>Editing appointment</h1>
+
+<%= render "form", appointment: @appointment %>
+
+<br>
+
+<div>
+  <%= link_to "Show this appointment", user_appointment_path(@user, @appointment) %> |
+  <%= link_to "Back to Dashboard", user_dashboard_path(current_user) %>
+</div>
