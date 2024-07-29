@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :availabilities
   # establishes nested relationship
   # implies appointments belong to a specific user
   resources :users do
