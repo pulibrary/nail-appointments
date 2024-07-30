@@ -13,4 +13,11 @@ module Authenticatable
     flash[:alert] = 'Please log in.'
     redirect_to login_path
   end
+
+  def require_admin_login
+    return if current_user&.admin?
+
+    flash[:alert] = 'Please log in as an admin.'
+    redirect_to login_path
+  end
 end

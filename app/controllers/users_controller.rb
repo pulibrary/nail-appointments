@@ -2,7 +2,9 @@
 
 class UsersController < ApplicationController
   include Authenticatable
-  before_action :authenticate_user, only: %i[show edit update destroy dashboard]
+  before_action :set_user, only: %i[ show edit update destroy ]
+  before_action :authenticate_user, only: %i[dashboard]
+  before_action :require_admin_login, only: %i[show edit update destroy]
 
   # GET /users or /users.json
   def index
@@ -10,7 +12,9 @@ class UsersController < ApplicationController
   end
 
   # GET /users/1 or /users/1.json
-  def show; end
+  def show
+    @user = User.find(params[:id])
+  end
 
   # GET /users/new
   def new
@@ -63,6 +67,11 @@ class UsersController < ApplicationController
   end
 
   private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = User.find(params[:id])
+  end
 
   # Only allow a list of trusted parameters through.
   def user_params
