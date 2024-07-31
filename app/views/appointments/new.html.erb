@@ -14,8 +14,8 @@
         <%= form.hidden_field :user_id, value: current_user.id %>
         
         <div>
-          <%= form.label :availabilities_id, "Time Slot", style: "display: block" %>
-          <%= form.select :availabilities_id, options_for_select(@time_slots.map { |slot| ["#{slot.start_time.strftime('%H:%M')} - #{slot.end_time.strftime('%H:%M')}", slot.id] }), { prompt: "Select Time Slot" } %>
+          <%= form.label :availability_id, "Time Slot", style: "display: block" %>
+          <%= form.select :availability_id, options_for_select(@time_slots.map { |slot| ["#{slot.start_time.strftime('%H:%M')} - #{slot.end_time.strftime('%H:%M')}", slot.id] }), { prompt: "Select Time Slot" } %>
         </div>
           <div>
           <%= form.label :service, "Service", style: "display: block" %>

@@ -30,7 +30,7 @@ class AppointmentsController < ApplicationController
   def create
     @appointment = @user.appointments.build(appointment_params)
     @appointment.user_id = current_user.id
-        
+    
     if @appointment.save
       redirect_to user_appointment_path(@user, @appointment), notice: 'Appointment was successfully created.'
     else
@@ -58,6 +58,6 @@ class AppointmentsController < ApplicationController
   end
 
   def appointment_params
-    params.require(:appointment).permit(:user_id, :availabilities_id, :service, :comments)
+    params.require(:appointment).permit(:user_id, :availability_id, :service, :comments)
   end
 end
