@@ -53,6 +53,7 @@ end
 
 group :test do
   gem 'axe-core-rspec'
+  gem 'rails-controller-testing'
 end
 
 group :development do
