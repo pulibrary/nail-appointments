@@ -20,8 +20,8 @@ RSpec.describe AppointmentsController do
 
   let(:availability_attributes) do
     {
-      start_time: Date.today.beginning_of_day + 1.hour,
-      end_time: Date.today.beginning_of_day + 2.hours
+      start_time: Date.tomorrow.beginning_of_day + 1.hour,
+      end_time: Date.tomorrow.beginning_of_day + 2.hours
     }
   end
 

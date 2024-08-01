@@ -1,0 +1,26 @@
+<h1>All Appointments</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Service</th>
+      <th>Comments</th>
+      <th>Start Time</th>
+      <th>End Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @appointments.each do |appointment| %>
+      <tr>
+        <td><%= appointment.user.first_name %> <%= appointment.user.last_name %></td>
+        <td><%= appointment.service %></td>
+        <td><%= appointment.comments %></td>
+        <td><%= appointment.availability.start_time.strftime('%Y-%m-%d %H:%M:%S') %></td>
+        <td><%= appointment.availability.end_time.strftime('%Y-%m-%d %H:%M:%S') %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Back to Dashboard', user_dashboard_path(current_user) %>

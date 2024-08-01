@@ -1,9 +1,11 @@
 class AvailabilitiesController < ApplicationController
+  include Authenticatable
   before_action :set_availability, only: %i[ show edit update destroy ]
+  before_action :require_admin_login, except: %i[ show ]
 
   # GET /availabilities or /availabilities.json
   def index
-    @availabilities = Availability.all
+    @availabilities = Availability.order(:start_time)
   end
 
   # GET /availabilities/1 or /availabilities/1.json

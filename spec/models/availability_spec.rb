@@ -4,8 +4,8 @@ require 'rails_helper'
 RSpec.describe Availability, type: :model do
   let(:valid_attributes) do
     {
-      start_time: Date.today.beginning_of_day + 1.hour,
-      end_time: Date.today.beginning_of_day + 2.hours,
+      start_time: Date.tomorrow.beginning_of_day + 1.hour,
+      end_time: Date.tomorrow.beginning_of_day + 2.hours,
       filled_status: false
     }
   end
@@ -51,7 +51,7 @@ RSpec.describe Availability, type: :model do
     end
 
     it 'is not valid with a start_time that is after the end_time' do
-      availability = Availability.new(valid_attributes.merge(start_time: Date.today.beginning_of_day + 3.hours, end_time: Date.today.beginning_of_day + 2.hours))
+      availability = Availability.new(valid_attributes.merge(start_time: Date.tomorrow.beginning_of_day + 3.hours, end_time: Date.tomorrow.beginning_of_day + 2.hours))
       expect(availability).to_not be_valid
     end
   end
@@ -60,6 +60,13 @@ RSpec.describe Availability, type: :model do
     it 'destroys associated appointments when destroyed' do
       @appointment = Appointment.create!(user: user, availability: availability, **appointment_attributes)
       expect { availability.destroy }.to change(Appointment, :count).by(-1)
+    end
+  end
+
+  describe 'defaults' do
+    it 'sets filled_status to false by default' do
+      # Check that filled_status defaults to false
+      expect(availability.filled_status).to be_falsey
     end
   end
 end
