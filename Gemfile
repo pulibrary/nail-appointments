@@ -54,6 +54,7 @@ end
 group :test do
   gem 'axe-core-rspec'
   gem 'rails-controller-testing'
+  gem 'shoulda-matchers'
 end
 
 group :development do
