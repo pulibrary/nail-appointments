@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
+  resources :availabilities
   # establishes nested relationship
   # implies appointments belong to a specific user
   resources :users do
     resources :appointments
   end
-
+  
   get '/user/:id/dashboard', to: 'users#dashboard', as: 'user_dashboard'
 
   get '/login', to: 'sessions#new', as: :login

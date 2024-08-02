@@ -1,0 +1,20 @@
+inherit_from: .rubocop_todo.yml
+require: 
+  - rubocop-rails
+  - rubocop-rspec
+  - rubocop-rspec_rails
+
+AllCops:
+  NewCops: enable
+  Exclude:
+    - 'bin/**/*'
+    - 'db/**/*'
+    - 'vendor/bundle/**/*'
+    - 'config/**/*'
+
+RSpec/MultipleExpectations:
+  Exclude:
+    - 'show.html.erb_spec.rb'
+
+RSpec/ExampleLength:
+  Enabled: false

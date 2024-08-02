@@ -1,47 +1,50 @@
-<%= form_with(model: user) do |form| %>
+<%= form_with(model: user, local: true) do |form| %>
   <% if user.errors.any? %>
-    <div style="color: red">
+    <div class="alert alert-danger">
       <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
-
       <ul>
-        <% user.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+        <% user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :first_name, style: "display: block" %>
-    <%= form.text_field :first_name %>
-  </div>
+  <fieldset>
+    <legend>User Information</legend>
 
-  <div>
-    <%= form.label :last_name, style: "display: block" %>
-    <%= form.text_field :last_name %>
-  </div>
+    <div class="form-group">
+      <%= form.label :first_name, "First Name", class: "form-label" %>
+      <%= form.text_field :first_name, class: "form-control" %>
+      <small class="form-text text-muted">Enter your first name.</small>
+    </div>
 
-  <div>
-    <%= form.label :pronouns, style: "display: block" %>
-    <%= form.text_field :pronouns %>
-  </div>
+    <div class="form-group">
+      <%= form.label :last_name, "Last Name", class: "form-label" %>
+      <%= form.text_field :last_name, class: "form-control" %>
+      <small class="form-text text-muted">Enter your last name.</small>
+    </div>
 
-  <div>
-    <%= form.label :email, style: "display: block" %>
-    <%= form.text_field :email %>
-  </div>
+    <div class="form-group">
+      <%= form.label :pronouns, "Pronouns", class: "form-label" %>
+      <%= form.text_field :pronouns, class: "form-control" %>
+      <small class="form-text text-muted">Enter your pronouns (e.g., she/her, he/him, they/them, etc.).</small>
+    </div>
 
-  <div>
-    <%= form.label :password, style: "display: block" %>
-    <%= form.text_field :password %>
-  </div>
+    <div class="form-group">
+      <%= form.label :email, "Email Address", class: "form-label" %>
+      <%= form.email_field :email, class: "form-control" %>
+      <small class="form-text text-muted">Enter a valid email address.</small>
+    </div>
 
-  <div>
-    <%= form.label :role, style: "display: block" %>
-    <%= form.number_field :role %>
-  </div>
+    <div class="form-group">
+      <%= form.label :password, "Password", class: "form-label" %>
+      <%= form.password_field :password, class: "form-control" %>
+      <small class="form-text text-muted">Choose a strong password.</small>
+    </div>
+  </fieldset>
 
-  <div>
-    <%= form.submit %>
+  <div class="form-group">
+    <%= form.submit "Sign Up", class: "btn btn-primary" %>
   </div>
 <% end %>
