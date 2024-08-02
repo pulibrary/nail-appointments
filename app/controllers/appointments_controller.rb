@@ -2,7 +2,7 @@
 
 class AppointmentsController < ApplicationController
   include Authenticatable
-  before_action :set_user, except: %i[ all ]
+  before_action :set_user, except: %i[all]
   before_action :set_appointment, only: %i[show edit update destroy]
 
   def index
@@ -35,7 +35,7 @@ class AppointmentsController < ApplicationController
   def create
     @appointment = @user.appointments.build(appointment_params)
     @appointment.user_id = current_user.id
-    
+
     if @appointment.save
       redirect_to user_appointment_path(@user, @appointment), notice: 'Appointment was successfully created.'
     else
@@ -52,27 +52,21 @@ class AppointmentsController < ApplicationController
   end
 
   def destroy
-    begin
-      # Temporarily mark the availability as not filled
-      availability = @appointment.availability
-      if availability.present?
-        availability.update!(filled_status: false)
-      end
-  
-      # Attempt to destroy the appointment
-      @appointment.destroy
-  
-      redirect_to user_appointments_path(@user), notice: 'Appointment was successfully destroyed.'
-    rescue StandardError => e
-      # Rollback availability status change if appointment destruction fails
-      if availability.present?
-        availability.update!(filled_status: true)
-      end
-      
-      # Log the error and show an error message
-      Rails.logger.error("Failed to destroy appointment: #{e.message}")
-      redirect_to user_appointments_path(@user), alert: 'Failed to destroy appointment. Please try again.'
-    end
+    # Temporarily mark the availability as not filled
+    availability = @appointment.availability
+    availability.update!(filled_status: false) if availability.present?
+
+    # Attempt to destroy the appointment
+    @appointment.destroy
+
+    redirect_to user_appointments_path(@user), notice: 'Appointment was successfully destroyed.'
+  rescue StandardError => e
+    # Rollback availability status change if appointment destruction fails
+    availability.update!(filled_status: true) if availability.present?
+
+    # Log the error and show an error message
+    Rails.logger.error("Failed to destroy appointment: #{e.message}")
+    redirect_to user_appointments_path(@user), alert: 'Failed to destroy appointment. Please try again.'
   end
 
   def all

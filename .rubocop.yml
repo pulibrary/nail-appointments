@@ -14,7 +14,11 @@ AllCops:
 
 RSpec/MultipleExpectations:
   Exclude:
-    - 'show.html.erb_spec.rb'
+    - 'spec/**/*'
+
+RSpec/MultipleMemoizedHelpers:
+  Exclude:
+    - 'spec/models/*'
 
 RSpec/ExampleLength:
   Enabled: false

@@ -25,7 +25,7 @@ RSpec.describe AvailabilitiesController do
 
   let(:new_attributes) do
     {
-      start_time: Date.tomorrow.beginning_of_day + 5.hour,
+      start_time: Date.tomorrow.beginning_of_day + 5.hours,
       end_time: Date.tomorrow.beginning_of_day + 7.hours
     }
   end
@@ -80,16 +80,16 @@ RSpec.describe AvailabilitiesController do
       login_user(user)
 
       post :create, params: { availability: availability_attributes }
-      
+
       # Ensure the response was redirected to the availability show page
       expect(response).to redirect_to(availability_url(Availability.last))
 
       # Ensure the availability was created
       expect(Availability.last.start_time).to eq(availability_attributes[:start_time])
       expect(Availability.last.end_time).to eq(availability_attributes[:end_time])
-    
+
       # Check for flash notice
-      expect(flash[:notice]).to eq("Availability was successfully created.")
+      expect(flash[:notice]).to eq('Availability was successfully created.')
     end
   end
 
@@ -99,13 +99,13 @@ RSpec.describe AvailabilitiesController do
       login_user(user)
 
       availability = Availability.create!(availability_attributes.merge(id: 1))
-      
+
       patch :update, params: { id: availability.id, availability: new_attributes }
-      
+
       expect(response).to redirect_to(availability_url(availability))
       expect(Availability.last.start_time).to eq(new_attributes[:start_time])
       expect(Availability.last.end_time).to eq(new_attributes[:end_time])
-      expect(flash[:notice]).to eq("Availability was successfully updated.")
+      expect(flash[:notice]).to eq('Availability was successfully updated.')
     end
   end
 
@@ -115,10 +115,10 @@ RSpec.describe AvailabilitiesController do
       login_user(user)
 
       availability = Availability.create!(availability_attributes.merge(id: 1))
-      
+
       delete :destroy, params: { id: availability.id }
-      
-      expect(Availability.exists?(availability.id)).to be_falsey
+
+      expect(Availability).not_to exist(availability.id)
       expect(response).to redirect_to(availabilities_url)
       expect(flash[:notice]).to eq('Availability was successfully destroyed.')
     end

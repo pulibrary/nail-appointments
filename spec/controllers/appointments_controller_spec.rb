@@ -16,7 +16,7 @@ RSpec.describe AppointmentsController do
     }
   end
 
-  let(:date) { Date.today.to_s }
+  let(:date) { Time.zone.today.to_s }
 
   let(:availability_attributes) do
     {
@@ -55,7 +55,7 @@ RSpec.describe AppointmentsController do
       user = User.create!(user_attributes)
       login_user(user)
 
-      availability = Availability.create!(availability_attributes.merge(id: 1))
+      Availability.create!(availability_attributes.merge(id: 1))
       appointment = user.appointments.create!(appointment_attributes)
 
       get :show, params: { user_id: user.id, id: appointment.id }
@@ -71,10 +71,10 @@ RSpec.describe AppointmentsController do
 
       # Create availability slots for the specific date
       Availability.create!(availability_attributes)
-      
+
       get :new, params: { user_id: user.id, day: date }
       expect(response).to be_successful
-      
+
       # Ensure appointment is initialized
       expect(assigns(:appointment)).to be_a_new(Appointment)
     end
@@ -84,11 +84,11 @@ RSpec.describe AppointmentsController do
     it 'successfully renders the edit form for the specified appointment' do
       user = User.create!(user_attributes)
       login_user(user)
-  
-      availability = Availability.create!(availability_attributes.merge(id: 1))
+
+      Availability.create!(availability_attributes.merge(id: 1))
       appointment = user.appointments.create!(appointment_attributes)
 
-      get :edit, params: { user_id: user.id, id: appointment.id}
+      get :edit, params: { user_id: user.id, id: appointment.id }
       expect(response).to be_successful
     end
   end
@@ -100,9 +100,9 @@ RSpec.describe AppointmentsController do
 
       # Create availability slots for the specific date
       Availability.create!(availability_attributes.merge(id: 1))
-      
+
       post :create, params: { user_id: user.id, appointment: appointment_attributes }
-      
+
       expect(response).to redirect_to(user_appointment_path(user, Appointment.last))
     end
   end
@@ -112,11 +112,11 @@ RSpec.describe AppointmentsController do
       user = User.create!(user_attributes)
       login_user(user)
 
-      availability = Availability.create!(availability_attributes.merge(id: 1))
+      Availability.create!(availability_attributes.merge(id: 1))
       appointment = user.appointments.create!(appointment_attributes)
-      
+
       patch :update, params: { user_id: user.id, id: appointment.id, appointment: new_attributes }
-      
+
       expect(response).to redirect_to(user_appointment_path(user, appointment))
     end
   end
@@ -125,14 +125,14 @@ RSpec.describe AppointmentsController do
     it 'destroys the specified appointment and redirects to the appointments index' do
       user = User.create!(user_attributes)
       login_user(user)
-  
-      availability = Availability.create!(availability_attributes.merge(id: 1))
+
+      Availability.create!(availability_attributes.merge(id: 1))
       appointment = user.appointments.create!(appointment_attributes)
-      
+
       delete :destroy, params: { user_id: user.id, id: appointment.id }
-      
+
       # Verify that the user was deleted
-      expect(Appointment.exists?(appointment.id)).to be_falsey
+      expect(Appointment).not_to exist(appointment.id)
 
       expect(response).to redirect_to(user_appointments_path(user))
       expect(flash[:notice]).to eq('Appointment was successfully destroyed.')

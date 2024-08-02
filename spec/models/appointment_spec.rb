@@ -23,11 +23,11 @@ RSpec.describe Appointment do
 
   let(:user) { User.create!(user_attributes) }
   let(:availability) { Availability.create!(availability_attributes.merge(filled_status: false)) }
-  
+
   let(:valid_attributes) do
     {
-      user: user,
-      availability: availability,
+      user:,
+      availability:,
       service: 'Mani',
       comments: 'White Tips'
     }
@@ -49,34 +49,34 @@ RSpec.describe Appointment do
   end
 
   describe 'associations' do
-    it { should belong_to(:user) }
-    it { should belong_to(:availability) }
+    it { is_expected.to belong_to(:user) }
+    it { is_expected.to belong_to(:availability) }
   end
 
   describe 'validations' do
     it 'is valid with valid attributes' do
-      appointment = Appointment.new(valid_attributes)
+      appointment = described_class.new(valid_attributes)
       expect(appointment).to be_valid
     end
 
     it 'is not valid without a user' do
-      appointment = Appointment.new(valid_attributes.merge(user: nil))
-      expect(appointment).to_not be_valid
+      appointment = described_class.new(valid_attributes.merge(user: nil))
+      expect(appointment).not_to be_valid
     end
 
     it 'is not valid without an availability' do
-      appointment = Appointment.new(valid_attributes.merge(availability: nil))
-      expect(appointment).to_not be_valid
+      appointment = described_class.new(valid_attributes.merge(availability: nil))
+      expect(appointment).not_to be_valid
     end
 
     it 'is valid with a future availability' do
-      appointment = Appointment.new(user: user, availability: future_availability)
+      appointment = described_class.new(user:, availability: future_availability)
       expect(appointment).to be_valid
     end
 
     it 'is not valid with a past availability' do
-      appointment = Appointment.new(user: user, availability: past_availability)
-      expect(appointment).to_not be_valid
+      appointment = described_class.new(user:, availability: past_availability)
+      expect(appointment).not_to be_valid
       expect(appointment.errors[:availability]).to include('Must choose an appointment time in the future')
     end
   end
@@ -84,7 +84,7 @@ RSpec.describe Appointment do
   describe 'callbacks' do
     context 'when an appointment is created' do
       it 'updates the filled_status of the associated availability to true' do
-        appointment = Appointment.create!(valid_attributes)
+        described_class.create!(valid_attributes)
 
         # Reload the availability to get the updated status
         expect(availability.reload.filled_status).to be_truthy

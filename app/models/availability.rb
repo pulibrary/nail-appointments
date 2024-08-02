@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Availability < ApplicationRecord
   has_many :appointments, dependent: :destroy
 
@@ -9,14 +11,14 @@ class Availability < ApplicationRecord
   private
 
   def start_time_before_end_time
-    if start_time.present? && end_time.present? && start_time >= end_time
-      errors.add(:start_time, 'must be before the end time')
-    end
+    return unless start_time.present? && end_time.present? && start_time >= end_time
+
+    errors.add(:start_time, 'must be before the end time')
   end
 
   def start_time_in_future
-    if start_time.present? && start_time < Time.current
-      errors.add(:start_time, 'must be in the future')
-    end
+    return unless start_time.present? && start_time < Time.current
+
+    errors.add(:start_time, 'must be in the future')
   end
 end

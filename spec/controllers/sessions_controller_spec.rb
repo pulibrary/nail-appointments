@@ -28,7 +28,7 @@ RSpec.describe SessionsController do
     it 'logs in and redirects to user dashboard' do
       user = User.create!(valid_attributes)
       post :create, params: { email: user.email, password: valid_attributes[:password] }
-      
+
       expect(response).to redirect_to(user_dashboard_path(user))
       expect(flash[:notice]).to eq('Logged in successfully.')
       expect(session[:user_id]).to eq(user.id)
@@ -39,13 +39,12 @@ RSpec.describe SessionsController do
     it 'logsout and redirects to /' do
       user = User.create!(valid_attributes)
       login_user(user)
-      
+
       post :destroy, params: { id: user.id }
-      
+
       expect(response).to redirect_to(root_path)
       expect(flash[:notice]).to eq('Logged out successfully.')
       expect(session[:user_id]).to be_nil
     end
   end
-
 end

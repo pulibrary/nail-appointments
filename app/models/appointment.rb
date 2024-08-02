@@ -12,9 +12,9 @@ class Appointment < ApplicationRecord
   private
 
   def availability_start_time_in_future
-    if availability.present? && availability.start_time < Time.current
-      errors.add(:availability, 'Must choose an appointment time in the future')
-    end
+    return unless availability.present? && availability.start_time < Time.current
+
+    errors.add(:availability, 'Must choose an appointment time in the future')
   end
 
   def update_availability_status
