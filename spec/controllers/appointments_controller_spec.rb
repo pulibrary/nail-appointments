@@ -16,6 +16,7 @@ RSpec.describe AppointmentsController do
     }
   end
 
+  let(:user) { User.create!(user_attributes) }
   let(:date) { Time.zone.today.to_s }
 
   let(:availability_attributes) do
@@ -40,11 +41,12 @@ RSpec.describe AppointmentsController do
     }
   end
 
+  before(:each) do
+    login_user(user)
+  end
+
   describe 'GET /appointments' do
     it 'successfully renders the index view for the user\'s appointments' do
-      user = User.create!(user_attributes)
-      login_user(user)
-
       get :index, params: { user_id: user.id }
       expect(response).to be_successful
     end
@@ -52,9 +54,6 @@ RSpec.describe AppointmentsController do
 
   describe 'GET #show' do
     it 'successfully renders the show view for the specified appointment' do
-      user = User.create!(user_attributes)
-      login_user(user)
-
       Availability.create!(availability_attributes.merge(id: 1))
       appointment = user.appointments.create!(appointment_attributes)
 
@@ -66,9 +65,6 @@ RSpec.describe AppointmentsController do
 
   describe 'GET #new' do
     it 'successfully renders the new appointment form and initializes a new appointment' do
-      user = User.create!(user_attributes)
-      login_user(user)
-
       # Create availability slots for the specific date
       Availability.create!(availability_attributes)
 
@@ -82,9 +78,6 @@ RSpec.describe AppointmentsController do
 
   describe 'GET /edit' do
     it 'successfully renders the edit form for the specified appointment' do
-      user = User.create!(user_attributes)
-      login_user(user)
-
       Availability.create!(availability_attributes.merge(id: 1))
       appointment = user.appointments.create!(appointment_attributes)
 
@@ -95,9 +88,6 @@ RSpec.describe AppointmentsController do
 
   describe 'POST #create' do
     it 'creates a new appointment and redirects to the appointment show page' do
-      user = User.create!(user_attributes)
-      login_user(user)
-
       # Create availability slots for the specific date
       Availability.create!(availability_attributes.merge(id: 1))
 
@@ -109,9 +99,6 @@ RSpec.describe AppointmentsController do
 
   describe 'PATCH #update' do
     it 'updates the specified appointment and redirects to the appointment show page' do
-      user = User.create!(user_attributes)
-      login_user(user)
-
       Availability.create!(availability_attributes.merge(id: 1))
       appointment = user.appointments.create!(appointment_attributes)
 
@@ -123,9 +110,6 @@ RSpec.describe AppointmentsController do
 
   describe 'DELETE #destroy' do
     it 'destroys the specified appointment and redirects to the appointments index' do
-      user = User.create!(user_attributes)
-      login_user(user)
-
       Availability.create!(availability_attributes.merge(id: 1))
       appointment = user.appointments.create!(appointment_attributes)
 

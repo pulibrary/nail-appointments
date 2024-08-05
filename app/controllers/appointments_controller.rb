@@ -30,11 +30,12 @@ class AppointmentsController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    @time_range = "#{@appointment.availability.start_time.strftime('%Y-%m-%d %H:%M:%S')} - #{@appointment.availability.end_time.strftime('%Y-%m-%d %H:%M:%S')}"
+  end
 
   def create
     @appointment = @user.appointments.build(appointment_params)
-    @appointment.user_id = current_user.id
 
     if @appointment.save
       redirect_to user_appointment_path(@user, @appointment), notice: 'Appointment was successfully created.'

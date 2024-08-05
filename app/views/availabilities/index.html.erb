@@ -12,5 +12,6 @@
 </div>
 
 <%= link_to "New availability", new_availability_path %>
-<%= link_to "Back to new appointment", new_user_appointment_path(current_user) %>
+<%= link_to "New appointment", new_user_appointment_path(current_user) %>
+<%= link_to 'To Dashboard', user_dashboard_path(current_user) %>
 

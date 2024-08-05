@@ -35,5 +35,9 @@ RSpec.describe UsersController do
     it 'routes to #destroy' do
       expect(delete: '/users/1').to route_to('users#destroy', id: '1')
     end
+
+    it 'routes to #dashboard' do
+      expect(get: '/user/1/dashboard').to route_to('users#dashboard', id: '1')
+    end
   end
 end

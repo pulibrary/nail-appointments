@@ -2,36 +2,33 @@
 
 require 'rails_helper'
 
-RSpec.describe 'users/index' do
+RSpec.describe 'users/index.html.erb', type: :view do
+  let(:user1) { FactoryBot.create(:user, first_name: 'Axle', last_name: 'Minse') }
+  let(:user2) { FactoryBot.create(:user, first_name: 'Imani', last_name: 'Iwo') }
+  let(:current_user) { FactoryBot.create(:user) }
+
   before do
-    assign(:users, [
-             User.create!(
-               first_name: 'First Name',
-               last_name: 'Last Name',
-               pronouns: 'Pronouns',
-               email: 'Email',
-               password: 'Password',
-               role: 2
-             ),
-             User.create!(
-               first_name: 'First Name',
-               last_name: 'Last Name',
-               pronouns: 'Pronouns',
-               email: 'Email',
-               password: 'Password',
-               role: 2
-             )
-           ])
+    assign(:users, [user1, user2])
+    allow(view).to receive(:current_user).and_return(current_user)
+    render
   end
 
-  it 'renders a list of users' do
-    render
-    cell_selector = Rails::VERSION::STRING >= '7' ? 'div>p' : 'tr>td'
-    assert_select cell_selector, text: Regexp.new('First Name'.to_s), count: 2
-    assert_select cell_selector, text: Regexp.new('Last Name'.to_s), count: 2
-    assert_select cell_selector, text: Regexp.new('Pronouns'.to_s), count: 2
-    assert_select cell_selector, text: Regexp.new('Email'.to_s), count: 2
-    assert_select cell_selector, text: Regexp.new('Password'.to_s), count: 2
-    assert_select cell_selector, text: Regexp.new(2.to_s), count: 2
+  it 'displays a list of users' do
+    assert_select 'h1', text: 'Users'
+
+    assert_select 'div#users' do
+      assert_select 'p' do
+        assert_select "a[href=?]", user_path(user1), text: 'Show this user'
+        assert_select "a[href=?]", user_path(user2), text: 'Show this user'
+      end
+    end
+  end
+
+  it 'renders the New User link' do
+    assert_select "a[href=?]", new_user_path, text: 'New user'
+  end
+
+  it 'renders the Back to Dashboard link' do
+    assert_select "a[href=?]", user_dashboard_path(current_user), text: 'Back to Dashboard'
   end
 end

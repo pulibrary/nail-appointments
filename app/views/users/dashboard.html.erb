@@ -6,10 +6,11 @@
         <p> Admin </p>
         <%= link_to "Show all users", users_path %>
         <%= link_to 'View All Appointments', all_appointments_path %>
+        <%= link_to "Edit Availabilities", availabilities_path %>
         <br>
       <% end %>
       <%= link_to "Click here to make an appointment", new_user_appointment_path(@user) %>
-      <%= link_to "Show your appointments", user_appointments_path(@user) %>
+      <%= link_to "My Appointments", user_appointments_path(@user) %>
       <%= form_with(url: logout_path, method: :post) do |form| %>
         <%= form.submit "Log Out" %>
       <% end %>
