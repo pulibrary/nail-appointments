@@ -2,11 +2,11 @@
 
 require 'rails_helper'
 
-RSpec.describe 'availabilities/edit.html.erb', type: :view do
+RSpec.describe 'availabilities/edit.html.erb' do
   let(:availability) do
-    FactoryBot.create(:availability, 
-                      start_time: Time.zone.now + 1.day, 
-                      end_time: Time.zone.now + 1.day + 1.hour)
+    FactoryBot.create(:availability,
+                      start_time: 1.day.from_now,
+                      end_time: 1.day.from_now + 1.hour)
   end
 
   before do
@@ -33,4 +33,3 @@ RSpec.describe 'availabilities/edit.html.erb', type: :view do
     assert_select 'a[href=?]', availabilities_path, text: 'Back to availabilities'
   end
 end
-

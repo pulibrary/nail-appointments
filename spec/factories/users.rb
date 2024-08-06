@@ -8,7 +8,7 @@ FactoryBot.define do
     sequence(:email) { |n| "user#{n}@email.com" }
     password { '2394jfi' }
     role { 'user' }
-  
+
     factory :admin do
       role { 'admin' }
     end

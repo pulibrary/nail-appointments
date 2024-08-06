@@ -2,10 +2,14 @@
 
 require 'rails_helper'
 
-RSpec.describe 'availabilities/index.html.erb', type: :view do
+RSpec.describe 'availabilities/index.html.erb' do
   let(:user) { FactoryBot.create(:user) }
-  let(:availability1) { FactoryBot.create(:availability, start_time: Time.zone.now + 1.day, end_time: Time.zone.now + 1.day + 1.hour) }
-  let(:availability2) { FactoryBot.create(:availability, start_time: Time.zone.now + 2.days, end_time: Time.zone.now + 2.days + 1.hour) }
+  let(:availability1) do
+    FactoryBot.create(:availability, start_time: 1.day.from_now, end_time: 1.day.from_now + 1.hour)
+  end
+  let(:availability2) do
+    FactoryBot.create(:availability, start_time: 2.days.from_now, end_time: 2.days.from_now + 1.hour)
+  end
 
   before do
     assign(:availabilities, [availability1, availability2])
@@ -18,19 +22,19 @@ RSpec.describe 'availabilities/index.html.erb', type: :view do
 
     [availability1, availability2].each do |availability|
       assert_select "div##{dom_id(availability)}"
-      assert_select "a[href=?]", availability_path(availability), text: 'Show this availability'
+      assert_select 'a[href=?]', availability_path(availability), text: 'Show this availability'
     end
   end
 
   it 'renders the New Availability link' do
-    assert_select "a[href=?]", new_availability_path, text: 'New availability'
+    assert_select 'a[href=?]', new_availability_path, text: 'New availability'
   end
 
   it 'renders the New Appointment link' do
-    assert_select "a[href=?]", new_user_appointment_path(user), text: 'New appointment'
+    assert_select 'a[href=?]', new_user_appointment_path(user), text: 'New appointment'
   end
 
   it 'renders the To Dashboard link' do
-    assert_select "a[href=?]", user_dashboard_path(user), text: 'To Dashboard'
+    assert_select 'a[href=?]', user_dashboard_path(user), text: 'To Dashboard'
   end
 end

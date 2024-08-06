@@ -2,16 +2,20 @@
 
 require 'rails_helper'
 
-RSpec.describe 'appointments/new.html.erb', type: :view do
+RSpec.describe 'appointments/new.html.erb' do
   let(:user) { FactoryBot.create(:user) }
-  let(:date) { Time.zone.now + 1.day }
-  let(:time_slot1) { FactoryBot.create(:availability, start_time: Time.zone.now + 1.day, end_time: Time.zone.now + 1.day + 1.hour) }
-  let(:time_slot2) { FactoryBot.create(:availability, start_time: Time.zone.now + 1.day + 2.hours, end_time: Time.zone.now + 1.day + 3.hours) }
+  let(:date) { 1.day.from_now }
+  let(:time_slot1) do
+    FactoryBot.create(:availability, start_time: 1.day.from_now, end_time: 1.day.from_now + 1.hour)
+  end
+  let(:time_slot2) do
+    FactoryBot.create(:availability, start_time: 1.day.from_now + 2.hours, end_time: 1.day.from_now + 3.hours)
+  end
   let(:appointment) { FactoryBot.create(:appointment) }
 
   before do
     assign(:user, user)
-    assign(:date, Time.zone.now + 1.day)
+    assign(:date, 1.day.from_now)
     assign(:time_slots, [time_slot1, time_slot2])
     assign(:appointment, appointment)
     allow(view).to receive(:current_user).and_return(user)
@@ -25,11 +29,12 @@ RSpec.describe 'appointments/new.html.erb', type: :view do
   end
 
   it 'displays available time slots if they exist' do
-    expect(rendered).to have_content("Available Time Slots on #{(Time.zone.now + 1.day).strftime('%B %d, %Y')}:")
-    
+    expect(rendered).to have_content("Available Time Slots on #{1.day.from_now.strftime('%B %d, %Y')}:")
+
     time_slots = [time_slot1, time_slot2]
     time_slots.each do |slot|
-      expect(rendered).to have_selector("option[value='#{slot.id}']", text: "#{slot.start_time.strftime('%H:%M')} - #{slot.end_time.strftime('%H:%M')}")
+      expect(rendered).to have_selector("option[value='#{slot.id}']",
+                                        text: "#{slot.start_time.strftime('%H:%M')} - #{slot.end_time.strftime('%H:%M')}")
     end
 
     expect(rendered).to have_field('Service', placeholder: 'Enter service type')

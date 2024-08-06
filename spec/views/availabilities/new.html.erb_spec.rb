@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'availabilities/new.html.erb', type: :view do
+RSpec.describe 'availabilities/new.html.erb' do
   let(:availability) { FactoryBot.build(:availability) }
 
   before do
@@ -23,7 +23,6 @@ RSpec.describe 'availabilities/new.html.erb', type: :view do
   end
 
   it 'displays the back to availabilities link' do
-    assert_select "a[href=?]", availabilities_path, text: 'Back to availabilities'
+    assert_select 'a[href=?]', availabilities_path, text: 'Back to availabilities'
   end
 end
-

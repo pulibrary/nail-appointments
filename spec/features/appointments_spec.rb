@@ -1,15 +1,13 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.feature "Appointments", type: :feature do
+RSpec.feature 'Appointments' do
   let(:user) { FactoryBot.create(:user) }
-  let(:availability) { FactoryBot.create(:availability) }
+  let!(:availability) { FactoryBot.create(:availability) }
 
   before do
     login_user(user)
-  end
-
-  before do
-    # Temporarily disable the future validation for this test
     Availability.class_eval do
       def start_time_in_future; end
     end
@@ -21,7 +19,8 @@ RSpec.feature "Appointments", type: :feature do
     fill_in 'Select Day', with: availability.start_time.strftime('%Y-%m-%d')
     click_button 'Find Time Slots'
 
-    select "#{availability.start_time.strftime('%H:%M')} - #{availability.end_time.strftime('%H:%M')}", from: 'Time Slot'
+    select "#{availability.start_time.strftime('%H:%M')} - #{availability.end_time.strftime('%H:%M')}",
+           from: 'Time Slot'
     fill_in 'Service', with: 'Massage'
     fill_in 'Comments', with: 'Please use lavender oil'
 
@@ -34,8 +33,8 @@ RSpec.feature "Appointments", type: :feature do
 
   describe 'Viewing Appointments' do
     scenario 'User views their appointments' do
-      appointment = FactoryBot.create(:appointment, user: user, availability: availability)
-  
+      appointment = FactoryBot.create(:appointment, user:, availability:)
+
       visit user_dashboard_path(user)
       expect(page).to have_content('My Appointments')
 

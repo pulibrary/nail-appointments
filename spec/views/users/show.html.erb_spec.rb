@@ -2,8 +2,11 @@
 
 require 'rails_helper'
 
-RSpec.describe 'users/show.html.erb', type: :view do
-  let(:user) { FactoryBot.create(:user, first_name: 'John', last_name: 'Doe', pronouns: 'he/him', email: 'john.doe@example.com', role: 'admin') }
+RSpec.describe 'users/show.html.erb' do
+  let(:user) do
+    FactoryBot.create(:user, first_name: 'John', last_name: 'Doe', pronouns: 'he/him', email: 'john.doe@example.com',
+                             role: 'admin')
+  end
 
   before do
     assign(:user, user)
@@ -35,6 +38,6 @@ RSpec.describe 'users/show.html.erb', type: :view do
   end
 
   it 'renders the destroy button' do
-    assert_select "button", text: 'Destroy this user'
+    assert_select 'button', text: 'Destroy this user'
   end
 end

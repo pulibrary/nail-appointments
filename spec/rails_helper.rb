@@ -39,7 +39,7 @@ RSpec.configure do |config|
   config.fixture_paths = [
     Rails.root.join('spec/fixtures')
   ]
-  
+
   config.include FactoryBot::Syntax::Methods
   config.include ControllerMacros, type: :controller
   config.include AuthenticationFeatureHelpers, type: :feature

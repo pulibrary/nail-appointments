@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'sessions/new.html.erb', type: :view do
+RSpec.describe 'sessions/new.html.erb' do
   before do
     render
   end

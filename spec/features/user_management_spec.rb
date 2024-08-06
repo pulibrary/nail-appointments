@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe 'Users Management', type: :feature do
+RSpec.describe 'Users Management' do
   let(:admin_attributes) do
     {
       first_name: 'Angela',
@@ -52,7 +54,7 @@ RSpec.describe 'Users Management', type: :feature do
       expect(page).to have_content('jackie.ida@example.com')
     end
   end
-  
+
   describe 'Deleting User' do
     scenario 'Admin successfully deletes a user' do
       visit users_path

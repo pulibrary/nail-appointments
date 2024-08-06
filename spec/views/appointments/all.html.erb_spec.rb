@@ -2,12 +2,20 @@
 
 require 'rails_helper'
 
-RSpec.describe 'appointments/all.html.erb', type: :view do
+RSpec.describe 'appointments/all.html.erb' do
   let(:user) { FactoryBot.create(:user, first_name: 'Alicia', last_name: 'Kas') }
-  let(:availability1) { FactoryBot.create(:availability, start_time: Time.zone.now + 1.day, end_time: Time.zone.now + 2.days) }
-  let(:availability2) { FactoryBot.create(:availability, start_time: Time.zone.now + 1.day, end_time: Time.zone.now + 2.days) }
-  let(:appointment1) { FactoryBot.create(:appointment, user: user, availability: availability1, service: 'Massage', comments: 'Relaxing') }
-  let(:appointment2) { FactoryBot.create(:appointment, user: user, availability: availability2, service: 'Facial', comments: 'Brightening') }
+  let(:availability1) do
+    FactoryBot.create(:availability, start_time: 1.day.from_now, end_time: 2.days.from_now)
+  end
+  let(:availability2) do
+    FactoryBot.create(:availability, start_time: 1.day.from_now, end_time: 2.days.from_now)
+  end
+  let(:appointment1) do
+    FactoryBot.create(:appointment, user:, availability: availability1, service: 'Massage', comments: 'Relaxing')
+  end
+  let(:appointment2) do
+    FactoryBot.create(:appointment, user:, availability: availability2, service: 'Facial', comments: 'Brightening')
+  end
 
   before do
     assign(:appointments, [appointment1, appointment2])

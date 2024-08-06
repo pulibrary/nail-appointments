@@ -41,7 +41,7 @@ RSpec.describe AppointmentsController do
     }
   end
 
-  before(:each) do
+  before do
     login_user(user)
   end
 

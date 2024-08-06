@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'users/index.html.erb', type: :view do
+RSpec.describe 'users/index.html.erb' do
   let(:user1) { FactoryBot.create(:user, first_name: 'Axle', last_name: 'Minse') }
   let(:user2) { FactoryBot.create(:user, first_name: 'Imani', last_name: 'Iwo') }
   let(:current_user) { FactoryBot.create(:user) }
@@ -18,17 +18,17 @@ RSpec.describe 'users/index.html.erb', type: :view do
 
     assert_select 'div#users' do
       assert_select 'p' do
-        assert_select "a[href=?]", user_path(user1), text: 'Show this user'
-        assert_select "a[href=?]", user_path(user2), text: 'Show this user'
+        assert_select 'a[href=?]', user_path(user1), text: 'Show this user'
+        assert_select 'a[href=?]', user_path(user2), text: 'Show this user'
       end
     end
   end
 
   it 'renders the New User link' do
-    assert_select "a[href=?]", new_user_path, text: 'New user'
+    assert_select 'a[href=?]', new_user_path, text: 'New user'
   end
 
   it 'renders the Back to Dashboard link' do
-    assert_select "a[href=?]", user_dashboard_path(current_user), text: 'Back to Dashboard'
+    assert_select 'a[href=?]', user_dashboard_path(current_user), text: 'Back to Dashboard'
   end
 end

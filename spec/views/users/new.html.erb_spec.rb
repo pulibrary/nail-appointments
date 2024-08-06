@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'users/new.html.erb', type: :view do
+RSpec.describe 'users/new.html.erb' do
   let(:user) { FactoryBot.build(:user) }
 
   before do
@@ -34,7 +34,8 @@ RSpec.describe 'users/new.html.erb', type: :view do
         assert_select 'div.form-group' do
           assert_select 'label[for=user_pronouns]', text: 'Pronouns'
           assert_select 'input[type=text][name="user[pronouns]"]'
-          assert_select 'small.form-text.text-muted', text: 'Enter your pronouns (e.g., she/her, he/him, they/them, etc.).'
+          assert_select 'small.form-text.text-muted',
+                        text: 'Enter your pronouns (e.g., she/her, he/him, they/them, etc.).'
         end
 
         assert_select 'div.form-group' do

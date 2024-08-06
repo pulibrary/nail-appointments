@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'users/dashboard.html.erb', type: :view do
+RSpec.describe 'users/dashboard.html.erb' do
   let(:admin) { FactoryBot.create(:admin) }
   let(:user) { FactoryBot.create(:user) }
 
