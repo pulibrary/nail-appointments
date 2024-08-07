@@ -1,20 +1,53 @@
-<div class="container text-center">
-    <h1>Dashboard</h1>
-    <% if @user %>
-      <p>Welcome <%= @user.first_name %></p>
-      <% if @user.admin? %>
-        <p> Admin </p>
-        <%= link_to "Show all users", users_path %>
-        <%= link_to 'View All Appointments', all_appointments_path %>
-        <%= link_to "Edit Availabilities", availabilities_path %>
-        <br>
-      <% end %>
-      <%= link_to "Make an appointment", new_user_appointment_path(@user) %>
-      <%= link_to "My Appointments", user_appointments_path(@user) %>
-      <%= form_with(url: logout_path, method: :post) do |form| %>
-        <%= form.submit "Log Out" %>
-      <% end %>
-    <% else %>
-      <p>Please login to access your dashboard.</p>
+<div class="container mt-4">
+
+  <% if @user %>
+    <div class="text-center mb-4">
+      <h1 class="display-4">Dashboard</h1>
+    </div>
+
+    <% if @user.admin? %>
+      <div class="row justify-content-center mb-4">
+        <div class="col-md-8 col-lg-6">
+          <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+              <h2 class="mb-0">Admin Features</h2>
+            </div>
+            <div class="card-body">
+              <div class="d-grid gap-2">
+                <%= link_to "Show All Users", users_path, class: "btn btn-outline-primary" %>
+                <%= link_to 'View All Appointments', all_appointments_path, class: "btn btn-outline-primary" %>
+                <%= link_to "Edit Availabilities", availabilities_path, class: "btn btn-outline-primary" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     <% end %>
+
+    <div class="row justify-content-center mb-4">
+      <div class="col-md-8 col-lg-6">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <div class="d-grid gap-2">
+              <%= link_to "New Appointment", new_user_appointment_path(@user), class: "btn btn-secondary" %>
+              <%= link_to "My Appointments", user_appointments_path(@user), class: "btn btn-secondary" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center">
+      <%= form_with(url: logout_path, method: :post, local: true, class: "d-inline") do |form| %>
+        <%= form.submit "Log Out", class: "btn btn-danger btn-lg" %>
+      <% end %>
+    </div>
+
+  <% else %>
+    <div class="text-center">
+      <p class="text-warning mb-4">Please log in to access your dashboard.</p>
+    </div>
+  <% end %>
+
 </div>
+

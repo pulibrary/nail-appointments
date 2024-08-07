@@ -1,15 +1,21 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Users</h1>
-
-<div id="users">
-  <% @users.each do |user| %>
-    <%= render user %>
-    <p>
-      <%= link_to "Show this user", user %>
-    </p>
+<div class="container mt-3">
+  <%= link_to user_dashboard_path(current_user), class: "btn btn-light mb-4 text-decoration-none" do %>
+    <i class="bi bi-arrow-left"></i> Back to Dashboard
   <% end %>
-</div>
 
-<%= link_to "New user", new_user_path %>
-<%= link_to "Back to Dashboard", user_dashboard_path(current_user) %>
+  <h1 class="mb-4">Users</h1>
+
+  <div class="row">
+    <% @users.each do |user| %>
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"><%= user.first_name %> <%= user.last_name %></h5>
+            <p class="card-text"><%= user.email %></p>
+            <%= link_to "Show this user", user, class: "btn btn-secondary" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

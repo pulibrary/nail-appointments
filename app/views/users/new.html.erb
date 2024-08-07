@@ -1,5 +1,18 @@
-<h1>Sign Up</h1>
+<div class="container mt-3">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h1 class="text-center mb-4">Sign Up</h1>
 
-<%= render "form", user: @user %>
+          <%= render "form", user: @user %>
 
-<%= link_to 'Login', login_path %>
+          <div class="d-flex justify-content-center align-items-center mt-3">
+            <p class="mb-0 me-2" style="text-decoration: underline;">Already have an account?</p>
+            <%= link_to 'Login', login_path %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

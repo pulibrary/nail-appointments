@@ -1,19 +1,35 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Appointments</h1>
-
-<div id="appointments">
-  <% if @appointments.any? %>
-    <% @appointments.each do |appointment| %>
-      <%= render appointment %>
-      <p>
-        <%= link_to "Show this appointment", user_appointment_path(@user, appointment) %>
-      </p>
-    <% end %>
-  <% else %>
-    <p>No appointments to show.</p>
+<div class="container mt-3">
+  <!-- Back to Dashboard Link -->
+  <%= link_to user_dashboard_path(@user), class: "btn btn-light mb-4 text-decoration-none" do %>
+    <i class="bi bi-arrow-left"></i> Back to Dashboard
   <% end %>
-</div>
 
-<%= link_to "New appointment", new_user_appointment_path(@user) %>
-<%= link_to "Back to Dashboard", user_dashboard_path(@user) %>
+  <h1 class="mb-4">Appointments</h1>
+
+  <%= link_to "New Appointment", new_user_appointment_path(@user), class: "btn btn-primary mb-4" %>
+
+  <div class="row">
+    <% if @appointments.any? %>
+      <% @appointments.each do |appointment| %>
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">
+                Appointment with <%= appointment.user.first_name %> <%= appointment.user.last_name %>
+              </h5>
+              <p class="card-text">
+                <strong>Service:</strong> <%= appointment.service %><br>
+                <strong>Comments:</strong> <%= appointment.comments.present? ? appointment.comments : 'No comments' %><br>
+                <strong>Start Time:</strong> <%= appointment.availability.start_time.strftime('%Y-%m-%d %H:%M:%S') %><br>
+                <strong>End Time:</strong> <%= appointment.availability.end_time.strftime('%Y-%m-%d %H:%M:%S') %>
+              </p>
+              <%= link_to "Show this appointment", user_appointment_path(@user, appointment), class: "btn btn-secondary" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <p>No appointments to show.</p>
+    <% end %>
+  </div>
+</div>

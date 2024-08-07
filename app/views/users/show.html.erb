@@ -1,11 +1,20 @@
-<p style="color: green"><%= notice %></p>
-<h1>User Information</h1>
+<div class="container mt-4">
 
-<%= render @user %>
+  <div class="mb-2">
+    <%= link_to users_path, class: "btn btn-light text-decoration-none d-inline-flex align-items-center mb-4" do %>
+      <i class="bi bi-arrow-left me-2"></i> Back to Users
+    <% end %>
+  </div>
 
-<div>
-  <%= link_to "Edit this user", edit_user_path(@user) %> |
-  <%= link_to "See all users", users_path %>
+  <h1 class="text-center mb-4">User Information</h1>
 
-  <%= button_to "Destroy this user", @user, method: :delete %>
+  <div class="mb-4">
+      <%= render @user %>
+  </div>
+
+  <div class="d-flex justify-content-center">
+    <%= link_to "Edit this user", edit_user_path(@user), class: "btn btn-warning me-2" %>
+    <%= button_to "Destroy this user", @user, method: :delete, data: { confirm: "Are you sure you want to delete this user?" }, class: "btn btn-danger" %>
+  </div>
+
 </div>

@@ -1,26 +1,32 @@
-<h1>All Appointments</h1>
+<div class="container mt-3">
+  <%= link_to user_dashboard_path(current_user), class: "btn btn-light mb-4 text-decoration-none" do %>
+    <i class="bi bi-arrow-left"></i> Back to Dashboard
+  <% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>User</th>
-      <th>Service</th>
-      <th>Comments</th>
-      <th>Start Time</th>
-      <th>End Time</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @appointments.each do |appointment| %>
-      <tr>
-        <td><%= appointment.user.first_name %> <%= appointment.user.last_name %></td>
-        <td><%= appointment.service %></td>
-        <td><%= appointment.comments %></td>
-        <td><%= appointment.availability.start_time.strftime('%Y-%m-%d %H:%M:%S') %></td>
-        <td><%= appointment.availability.end_time.strftime('%Y-%m-%d %H:%M:%S') %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  <h1 class="mb-4">All Appointments</h1>
 
-<%= link_to 'Back to Dashboard', user_dashboard_path(current_user) %>
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered">
+      <thead class="table-dark">
+        <tr>
+          <th>User</th>
+          <th>Service</th>
+          <th>Comments</th>
+          <th>Start Time</th>
+          <th>End Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @appointments.each do |appointment| %>
+          <tr>
+            <td><%= appointment.user.first_name %> <%= appointment.user.last_name %></td>
+            <td><%= appointment.service %></td>
+            <td><%= appointment.comments %></td>
+            <td><%= appointment.availability.start_time.strftime('%Y-%m-%d %H:%M:%S') %></td>
+            <td><%= appointment.availability.end_time.strftime('%Y-%m-%d %H:%M:%S') %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
