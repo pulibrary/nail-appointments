@@ -32,9 +32,8 @@ RSpec.describe 'appointments/show.html.erb' do
 
   it 'renders the edit and destroy links and back button' do
     expect(rendered).to have_link('Edit this appointment', href: edit_user_appointment_path(user, appointment))
-    expect(rendered).to have_link('Back to Dashboard', href: user_dashboard_path(user))
+    expect(rendered).to have_link('Back to Appointments', href: user_appointments_path(user))
 
-    # Check for the destroy button
     expect(rendered).to have_button('Destroy this appointment')
   end
 end

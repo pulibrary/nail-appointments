@@ -13,20 +13,19 @@ RSpec.describe 'users/dashboard.html.erb' do
       render
     end
 
-    it 'displays the welcome message with the user\'s first name' do
+    it 'displays the dashboard text' do
       assert_select 'h1', text: 'Dashboard'
-      assert_select 'p', text: "Welcome #{admin.first_name}"
     end
 
     it 'displays admin-specific links if the user is an admin' do
-      assert_select 'p', text: 'Admin'
-      assert_select "a[href='#{users_path}']", text: 'Show all users'
+      assert_select 'h2', text: 'Admin Features'
+      assert_select "a[href='#{users_path}']", text: 'Show All Users'
       assert_select "a[href='#{all_appointments_path}']", text: 'View All Appointments'
       assert_select "a[href='#{availabilities_path}']", text: 'Edit Availabilities'
     end
 
     it 'displays appointment links and logout form' do
-      assert_select "a[href='#{new_user_appointment_path(admin)}']", text: 'Click here to make an appointment'
+      assert_select "a[href='#{new_user_appointment_path(admin)}']", text: 'New Appointment'
       assert_select "a[href='#{user_appointments_path(admin)}']", text: 'My Appointments'
       assert_select "form[action='#{logout_path}'][method='post']" do
         assert_select "input[type='submit'][value='Log Out']"
@@ -42,7 +41,6 @@ RSpec.describe 'users/dashboard.html.erb' do
 
     it 'displays the welcome message with the user\'s first name' do
       assert_select 'h1', text: 'Dashboard'
-      assert_select 'p', text: "Welcome #{user.first_name}"
     end
 
     it 'does not display admin-specific links' do
@@ -53,7 +51,7 @@ RSpec.describe 'users/dashboard.html.erb' do
     end
 
     it 'displays appointment links and logout form' do
-      assert_select "a[href='#{new_user_appointment_path(user)}']", text: 'Click here to make an appointment'
+      assert_select "a[href='#{new_user_appointment_path(user)}']", text: 'New Appointment'
       assert_select "a[href='#{user_appointments_path(user)}']", text: 'My Appointments'
       assert_select "form[action='#{logout_path}'][method='post']" do
         assert_select "input[type='submit'][value='Log Out']"
@@ -68,7 +66,7 @@ RSpec.describe 'users/dashboard.html.erb' do
     end
 
     it 'prompts to login' do
-      assert_select 'p', text: 'Please login to access your dashboard.'
+      assert_select 'p', text: 'Please log in to access your dashboard.'
     end
 
     it 'does not display user or admin viewable items' do

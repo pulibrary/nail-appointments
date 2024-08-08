@@ -28,7 +28,7 @@ RSpec.describe 'availabilities/show.html.erb' do
 
   it 'has the correct links and button' do
     assert_select "a[href='#{edit_availability_path(availability)}']", text: 'Edit this availability'
-    assert_select "a[href='#{availabilities_path}']", text: 'Back to availabilities'
+    assert_select "a[href='#{availabilities_path}']", text: 'Back to Availabilities'
     assert_select 'button', text: 'Destroy this availability'
   end
 end

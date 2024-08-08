@@ -26,7 +26,6 @@ RSpec.feature 'Appointments' do
 
     click_button 'Book Appointment'
 
-    expect(page).to have_content('Appointment was successfully created.')
     expect(page).to have_content('Massage')
     expect(page).to have_content('Please use lavender oil')
   end

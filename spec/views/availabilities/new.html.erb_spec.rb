@@ -18,11 +18,11 @@ RSpec.describe 'availabilities/new.html.erb' do
 
       assert_select 'input[name=?][type=?]', 'availability[end_time]', 'datetime-local'
 
-      assert_select 'input[type=submit][value=?]', 'Create Availability'
+      assert_select 'input[type=submit][value=?]', 'Save Availability'
     end
   end
 
   it 'displays the back to availabilities link' do
-    assert_select 'a[href=?]', availabilities_path, text: 'Back to availabilities'
+    assert_select 'a[href=?]', availabilities_path, text: 'Back to Availabilities'
   end
 end

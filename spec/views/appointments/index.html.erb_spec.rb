@@ -32,7 +32,7 @@ RSpec.describe 'appointments/index.html.erb' do
   end
 
   it 'displays the correct links' do
-    expect(rendered).to have_link('New appointment', href: new_user_appointment_path(user))
+    expect(rendered).to have_link('New Appointment', href: new_user_appointment_path(user))
     expect(rendered).to have_link('Back to Dashboard', href: user_dashboard_path(user))
   end
 end

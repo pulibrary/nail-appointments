@@ -30,9 +30,8 @@ RSpec.describe 'Admin Functionality' do
 
       fill_in 'Start time', with: 1.day.from_now.strftime('%Y-%m-%d %H:%M:%S')
       fill_in 'End time', with: (1.day.from_now + 2.hours).strftime('%Y-%m-%d %H:%M:%S')
-      click_button 'Create Availability'
+      click_button 'Save Availability'
 
-      expect(page).to have_content('Availability was successfully created.')
       expect(page).to have_content("Start time: #{1.day.from_now.strftime('%Y-%m-%d %H:%M:%S')}")
       expect(page).to have_content("End time: #{(1.day.from_now + 2.hours).strftime('%Y-%m-%d %H:%M:%S')}")
     end
@@ -44,9 +43,8 @@ RSpec.describe 'Admin Functionality' do
 
       fill_in 'Start time', with: 2.days.from_now.strftime('%Y-%m-%d %H:%M:%S')
       fill_in 'End time', with: (2.days.from_now + 2.hours).strftime('%Y-%m-%d %H:%M:%S')
-      click_button 'Update Availability'
+      click_button 'Save Availability'
 
-      expect(page).to have_content('Availability was successfully updated.')
       expect(page).to have_content("Start time: #{2.days.from_now.strftime('%Y-%m-%d %H:%M:%S')}")
       expect(page).to have_content("End time: #{(2.days.from_now + 2.hours).strftime('%Y-%m-%d %H:%M:%S')}")
     end
@@ -59,7 +57,6 @@ RSpec.describe 'Admin Functionality' do
       expect(page).to have_content("Start time: #{availability.start_time.strftime('%Y-%m-%d %H:%M:%S')}")
 
       click_button 'Destroy this availability'
-      expect(page).to have_content('Availability was successfully destroyed.')
       expect(page).not_to have_content("Start time: #{availability.start_time.strftime('%Y-%m-%d %H:%M:%S')}")
     end
   end

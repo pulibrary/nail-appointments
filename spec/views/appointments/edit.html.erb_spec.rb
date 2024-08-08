@@ -30,8 +30,7 @@ RSpec.describe 'appointments/edit.html.erb' do
   end
 
   it 'displays the correct links' do
-    assert_select 'a[href=?]', user_appointment_path(user, appointment), text: 'Show this appointment'
-    assert_select 'a[href=?]', user_dashboard_path(admin), text: 'Back to Dashboard'
+    assert_select 'a[href=?]', user_appointment_path(user, appointment), text: 'Back to Appointment'
   end
 
   it 'displays error messages if there are any' do

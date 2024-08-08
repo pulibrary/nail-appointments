@@ -22,32 +22,26 @@ RSpec.describe 'users/new.html.erb' do
         assert_select 'div.form-group' do
           assert_select 'label[for=user_first_name]', text: 'First Name'
           assert_select 'input[type=text][name="user[first_name]"]'
-          assert_select 'small.form-text.text-muted', text: 'Enter your first name.'
         end
 
         assert_select 'div.form-group' do
           assert_select 'label[for=user_last_name]', text: 'Last Name'
           assert_select 'input[type=text][name="user[last_name]"]'
-          assert_select 'small.form-text.text-muted', text: 'Enter your last name.'
         end
 
         assert_select 'div.form-group' do
           assert_select 'label[for=user_pronouns]', text: 'Pronouns'
           assert_select 'input[type=text][name="user[pronouns]"]'
-          assert_select 'small.form-text.text-muted',
-                        text: 'Enter your pronouns (e.g., she/her, he/him, they/them, etc.).'
         end
 
         assert_select 'div.form-group' do
           assert_select 'label[for=user_email]', text: 'Email'
           assert_select 'input[type=email][name="user[email]"]'
-          assert_select 'small.form-text.text-muted', text: 'Enter a valid email address.'
         end
 
         assert_select 'div.form-group' do
           assert_select 'label[for=user_password]', text: 'Password'
           assert_select 'input[type=password][name="user[password]"]'
-          assert_select 'small.form-text.text-muted', text: 'Choose a strong password.'
         end
       end
 

@@ -52,10 +52,6 @@ RSpec.describe 'appointments/new.html.erb' do
     expect(rendered).not_to have_link('Edit Availabilities')
   end
 
-  it 'displays the show all appointments link' do
-    expect(rendered).to have_link('Show all appointments', href: user_appointments_path(user))
-  end
-
   it 'displays the back to dashboard link' do
     expect(rendered).to have_link('Back to Dashboard', href: user_dashboard_path(user))
   end

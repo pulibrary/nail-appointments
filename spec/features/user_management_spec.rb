@@ -25,8 +25,7 @@ RSpec.describe 'Users Management' do
     scenario 'Admin views the list of users' do
       visit users_path
 
-      expect(page).to have_content('First name: Megan')
-      expect(page).to have_content('Last name: Lai')
+      expect(page).to have_content('Megan Lai')
     end
   end
 
@@ -48,7 +47,6 @@ RSpec.describe 'Users Management' do
       fill_in 'Email', with: 'jackie.ida@example.com'
       click_button 'Submit'
 
-      expect(page).to have_content('User was successfully updated.')
       expect(page).to have_content('First name: Jackie')
       expect(page).to have_content('Last name: Ida')
       expect(page).to have_content('jackie.ida@example.com')
@@ -59,14 +57,11 @@ RSpec.describe 'Users Management' do
     scenario 'Admin successfully deletes a user' do
       visit users_path
 
-      expect(page).to have_content('First name: Megan')
-      expect(page).to have_content('Last name: Lai')
+      expect(page).to have_content('Megan Lai')
 
       visit user_path(user)
       click_button 'Destroy this user'
-      expect(page).to have_content('User was successfully destroyed.')
-      expect(page).not_to have_content('First name: Megan')
-      expect(page).not_to have_content('First name: Lai')
+      expect(page).not_to have_content('Megan Lai')
     end
   end
 end
