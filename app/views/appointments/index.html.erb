@@ -14,9 +14,9 @@
         <div class="col-md-4 mb-4">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">
+              <h2 class="card-title">
                 Appointment with <%= appointment.user.first_name %> <%= appointment.user.last_name %>
-              </h5>
+              </h2>
               <p class="card-text">
                 <strong>Service:</strong> <%= appointment.service %><br>
                 <strong>Comments:</strong> <%= appointment.comments.present? ? appointment.comments : 'No comments' %><br>
