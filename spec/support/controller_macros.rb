@@ -5,7 +5,3 @@ module ControllerMacros
     session[:user_id] = user.id
   end
 end
-
-RSpec.configure do |config|
-  config.include ControllerMacros, type: :controller
-end

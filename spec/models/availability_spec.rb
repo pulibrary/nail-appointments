@@ -1,16 +1,18 @@
+# frozen_string_literal: true
+
 # spec/models/availability_spec.rb
 require 'rails_helper'
 
-RSpec.describe Availability, type: :model do
+RSpec.describe Availability do
   let(:valid_attributes) do
     {
-      start_time: Date.today.beginning_of_day + 1.hour,
-      end_time: Date.today.beginning_of_day + 2.hours,
+      start_time: Date.tomorrow.beginning_of_day + 1.hour,
+      end_time: Date.tomorrow.beginning_of_day + 2.hours,
       filled_status: false
     }
   end
 
-  let(:availability) { Availability.create!(valid_attributes) }
+  let(:availability) { described_class.create!(valid_attributes) }
   let(:user_attributes) do
     {
       first_name: 'Megan',
@@ -21,7 +23,7 @@ RSpec.describe Availability, type: :model do
       role: 'admin'
     }
   end
-  
+
   let(:user) { User.create!(user_attributes) }
 
   let(:appointment_attributes) do
@@ -32,7 +34,7 @@ RSpec.describe Availability, type: :model do
   end
 
   describe 'associations' do
-    it { should have_many(:appointments).dependent(:destroy) }
+    it { is_expected.to have_many(:appointments).dependent(:destroy) }
   end
 
   describe 'validations' do
@@ -41,25 +43,33 @@ RSpec.describe Availability, type: :model do
     end
 
     it 'is not valid without a start_time' do
-      availability = Availability.new(valid_attributes.merge(start_time: nil))
-      expect(availability).to_not be_valid
+      availability = described_class.new(valid_attributes.merge(start_time: nil))
+      expect(availability).not_to be_valid
     end
 
     it 'is not valid without an end_time' do
-      availability = Availability.new(valid_attributes.merge(end_time: nil))
-      expect(availability).to_not be_valid
+      availability = described_class.new(valid_attributes.merge(end_time: nil))
+      expect(availability).not_to be_valid
     end
 
     it 'is not valid with a start_time that is after the end_time' do
-      availability = Availability.new(valid_attributes.merge(start_time: Date.today.beginning_of_day + 3.hours, end_time: Date.today.beginning_of_day + 2.hours))
-      expect(availability).to_not be_valid
+      availability = described_class.new(valid_attributes.merge(start_time: Date.tomorrow.beginning_of_day + 3.hours,
+                                                                end_time: Date.tomorrow.beginning_of_day + 2.hours))
+      expect(availability).not_to be_valid
     end
   end
 
   describe 'callbacks' do
     it 'destroys associated appointments when destroyed' do
-      @appointment = Appointment.create!(user: user, availability: availability, **appointment_attributes)
+      @appointment = Appointment.create!(user:, availability:, **appointment_attributes)
       expect { availability.destroy }.to change(Appointment, :count).by(-1)
+    end
+  end
+
+  describe 'defaults' do
+    it 'sets filled_status to false by default' do
+      # Check that filled_status defaults to false
+      expect(availability.filled_status).to be_falsey
     end
   end
 end

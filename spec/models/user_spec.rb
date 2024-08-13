@@ -27,36 +27,36 @@ RSpec.describe User do
 
   describe 'validations' do
     it 'is valid with valid attributes' do
-      user = User.new(valid_attributes)
+      user = described_class.new(valid_attributes)
       expect(user).to be_valid
     end
 
     it 'is not valid without an email' do
-      user = User.new(valid_attributes.merge(email: nil))
-      expect(user).to_not be_valid
+      user = described_class.new(valid_attributes.merge(email: nil))
+      expect(user).not_to be_valid
     end
 
     it 'is not valid with an invalid email format' do
-      user = User.new(valid_attributes.merge(email: 'invalid-email'))
-      expect(user).to_not be_valid
+      user = described_class.new(valid_attributes.merge(email: 'invalid-email'))
+      expect(user).not_to be_valid
     end
 
     it 'is not valid with a duplicate email' do
-      User.create!(valid_attributes)
-      user = User.new(valid_attributes)
-      expect(user).to_not be_valid
+      described_class.create!(valid_attributes)
+      user = described_class.new(valid_attributes)
+      expect(user).not_to be_valid
     end
 
     it 'raises an error with an invalid role' do
-      expect {
-        User.create!(valid_attributes.merge(role: 'invalid_role'))
-      }.to raise_error(ArgumentError)
+      expect do
+        described_class.create!(valid_attributes.merge(role: 'invalid_role'))
+      end.to raise_error(ArgumentError)
     end
   end
 
   describe 'callbacks' do
     it 'normalizes the email before saving' do
-      user = User.create!(
+      user = described_class.create!(
         valid_attributes.merge(email: '  TEST@EMAIL.COM  ')
       )
       expect(user.email).to eq('test@email.com')
@@ -64,33 +64,33 @@ RSpec.describe User do
   end
 
   describe 'associations' do
-    it { should have_many(:appointments).dependent(:destroy) }
+    it { is_expected.to have_many(:appointments).dependent(:destroy) }
   end
 
   describe 'enums' do
     it 'defines roles enum with correct values' do
-      expect(User.roles.keys).to match_array(['admin', 'user'])
+      expect(described_class.roles.keys).to match_array(%w[admin user])
     end
 
     it 'defaults to user role' do
-      user = User.new(valid_attributes)
+      user = described_class.new(valid_attributes)
       expect(user.role).to eq('user')
     end
 
     it 'allows setting role to admin' do
-      user = User.new(valid_attributes.merge(role: 'admin'))
+      user = described_class.new(valid_attributes.merge(role: 'admin'))
       expect(user.role).to eq('admin')
     end
   end
 
   describe 'has_secure_password' do
     it 'authenticates with valid password' do
-      user = User.create!(valid_attributes)
+      user = described_class.create!(valid_attributes)
       expect(user.authenticate('2394jfi')).to eq(user)
     end
 
     it 'does not authenticate with invalid password' do
-      user = User.create!(valid_attributes)
+      user = described_class.create!(valid_attributes)
       expect(user.authenticate('wrong_password')).to be_falsey
     end
   end

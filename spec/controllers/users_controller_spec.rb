@@ -54,7 +54,7 @@ RSpec.describe UsersController do
       expect(response).to be_successful
     end
   end
-  
+
   describe 'POST #create' do
     it 'creates a new user and redirects to the user dashboard' do
       post :create, params: { user: valid_attributes }
@@ -69,7 +69,7 @@ RSpec.describe UsersController do
       user = User.create! valid_attributes
       login_user(user)
       patch :update, params: { id: user.id, user: new_attributes }
-      
+
       expect(response).to redirect_to(user_url(user))
       expect(flash[:notice]).to eq('User was successfully updated.')
     end
@@ -80,9 +80,9 @@ RSpec.describe UsersController do
       user = User.create! valid_attributes
       login_user(user)
       delete :destroy, params: { id: user.id }
-      
+
       # Verify that the user was deleted
-      expect(User.exists?(user.id)).to be_falsey
+      expect(User).not_to exist(user.id)
 
       expect(response).to redirect_to(users_url)
       expect(flash[:notice]).to eq('User was successfully destroyed.')

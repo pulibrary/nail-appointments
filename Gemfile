@@ -53,6 +53,8 @@ end
 
 group :test do
   gem 'axe-core-rspec'
+  gem 'capybara'
+  gem 'factory_bot_rails'
   gem 'rails-controller-testing'
   gem 'shoulda-matchers'
 end

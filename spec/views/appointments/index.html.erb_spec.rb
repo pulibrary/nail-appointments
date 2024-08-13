@@ -2,24 +2,37 @@
 
 require 'rails_helper'
 
-RSpec.describe 'appointments/index' do
+RSpec.describe 'appointments/index.html.erb' do
+  let(:user) { FactoryBot.create(:user) }
+  let(:appointment1) { FactoryBot.create(:appointment, user:, service: 'Massage', comments: 'Relaxing') }
+  let(:appointment2) { FactoryBot.create(:appointment, user:, service: 'Facial', comments: 'Brightening') }
+
   before do
-    assign(:appointments, [
-             Appointment.create!(
-               service: 'Service',
-               comments: 'Comments'
-             ),
-             Appointment.create!(
-               service: 'Service',
-               comments: 'Comments'
-             )
-           ])
+    assign(:user, user)
+    assign(:appointments, [appointment1, appointment2])
+    render
   end
 
   it 'renders a list of appointments' do
+    expect(rendered).to have_selector('h1', text: 'Appointments')
+
+    expect(rendered).to have_link('Show this appointment', href: user_appointment_path(user, appointment1))
+    expect(rendered).to have_link('Show this appointment', href: user_appointment_path(user, appointment2))
+
+    expect(rendered).to have_content('Massage')
+    expect(rendered).to have_content('Relaxing')
+    expect(rendered).to have_content('Facial')
+    expect(rendered).to have_content('Brightening')
+  end
+
+  it 'shows a message when there are no appointments' do
+    assign(:appointments, [])
     render
-    cell_selector = Rails::VERSION::STRING >= '7' ? 'div>p' : 'tr>td'
-    assert_select cell_selector, text: Regexp.new('Service'.to_s), count: 2
-    assert_select cell_selector, text: Regexp.new('Comments'.to_s), count: 2
+    expect(rendered).to have_selector('p', text: 'No appointments to show.')
+  end
+
+  it 'displays the correct links' do
+    expect(rendered).to have_link('New appointment', href: new_user_appointment_path(user))
+    expect(rendered).to have_link('Back to Dashboard', href: user_dashboard_path(user))
   end
 end
