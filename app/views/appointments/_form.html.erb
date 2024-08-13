@@ -1,31 +1,32 @@
-<%= form_with(model: [ @user, appointment ], local: true) do |form| %>
-    <% if appointment.errors.any? %>
-      <div style="color: red">
-        <h2><%= pluralize(appointment.errors.count, "error") %> prohibited this appointment from being saved:</h2>
-  
-        <ul>
-          <% appointment.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-    
-    <%= Time %>
-    <br>
-    <%= @time_range %>
+<%= form_with(model: [ @user, appointment ], local: true, class: "mt-4") do |form| %>
+  <% if appointment.errors.any? %>
+    <div class="alert alert-danger">
+      <h4 class="alert-heading"><%= pluralize(appointment.errors.count, "error") %> prohibited this appointment from being saved:</h4>
+      <ul class="mb-0">
+        <% appointment.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-    <div>
-      <%= form.label :service, "Service", style: "display: block" %>
-      <%= form.text_field :service, placeholder: "Enter service type" %>
-    </div>
-  
-    <div>
-      <%= form.label :comments, "Comments", style: "display: block" %>
-      <%= form.text_area :comments, placeholder: "Enter any additional comments" %>
-    </div>
-  
-    <div>
-      <%= form.submit "Save Appointment" %>
-    </div>
+  <div class="form-group mb-3">
+    <label id="time-label" class="mb-2">Time:</label>
+    <p id="time-content" aria-labelledby="time-label"><%= @time_range %></p>
+  </div>
+
+
+  <div class="form-group mb-3">
+    <%= form.label :service, "Service", class: "form-label" %>
+    <%= form.text_field :service, class: "form-control", placeholder: "Enter service type" %>
+  </div>
+
+  <div class="form-group mb-3">
+    <%= form.label :comments, "Comments", class: "form-label" %>
+    <%= form.text_area :comments, class: "form-control", placeholder: "Enter any additional comments" %>
+  </div>
+
+  <div class="form-group mt-4">
+    <%= form.submit "Save Appointment", class: "btn btn-primary btn-lg btn-block" %>
+  </div>
 <% end %>

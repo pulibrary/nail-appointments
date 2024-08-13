@@ -1,17 +1,18 @@
-<div id="<%= dom_id availability %>">
-  <p>
-    <strong>Start time:</strong>
-    <%= availability.start_time %>
-  </p>
+<div class="card mb-4 shadow-sm" id="<%= dom_id availability %>">
+  <div class="card-body">
+    <p class="card-text">
+      <strong>Start time:</strong>
+      <%= availability.start_time %>
+    </p>
 
-  <p>
-    <strong>End time:</strong>
-    <%= availability.end_time %>
-  </p>
+    <p class="card-text">
+      <strong>End time:</strong>
+      <%= availability.end_time %>
+    </p>
 
-  <p>
-    <strong>Filled status:</strong>
-    <%= availability.filled_status %>
-  </p>
-
+    <p class="card-text">
+      <strong>Filled status:</strong>
+      <%= availability.filled_status %>
+    </p>
+  </div>
 </div>

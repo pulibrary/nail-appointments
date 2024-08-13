@@ -28,8 +28,7 @@ RSpec.describe 'availabilities/edit.html.erb' do
     end
   end
 
-  it 'renders the correct links' do
-    assert_select 'a[href=?]', availability_path(availability), text: 'Show this availability'
-    assert_select 'a[href=?]', availabilities_path, text: 'Back to availabilities'
+  it 'renders the correct link' do
+    assert_select 'a[href=?]', availability_path(availability), text: 'Back to Availability'
   end
 end

@@ -8,7 +8,7 @@ RSpec.describe 'sessions/new.html.erb' do
   end
 
   it 'displays the login form' do
-    assert_select 'h2', text: 'Login'
+    assert_select 'h1', text: 'Login'
 
     assert_select "form[action='#{login_path}'][method='post']" do
       assert_select 'input[name=email][type=email].form-control'
@@ -20,6 +20,6 @@ RSpec.describe 'sessions/new.html.erb' do
   end
 
   it 'displays the back to sign up link' do
-    assert_select "a[href='#{new_user_path}']", text: 'Back to sign up'
+    assert_select "a[href='#{new_user_path}']", text: 'Sign Up'
   end
 end

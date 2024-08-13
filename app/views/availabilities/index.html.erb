@@ -1,17 +1,29 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Availabilities</h1>
-
-<div id="availabilities">
-  <% @availabilities.each do |availability| %>
-    <%= render availability %>
-    <p>
-      <%= link_to "Show this availability", availability %>
-    </p>
+<div class="container mt-3">
+  <%= link_to user_dashboard_path(current_user), class: "btn btn-light mb-4 text-decoration-none" do %>
+    <i class="bi bi-arrow-left"></i> Back to Dashboard
   <% end %>
+
+  <h1 class="mb-4">Availabilities</h1>
+
+  <%= link_to "New Availability", new_availability_path, class: "btn btn-primary mb-4" %>
+
+  <div class="row">
+    <% @availabilities.each do |availability| %>
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="card-title">
+              <%= availability.start_time.strftime('%B %d, %Y') %>
+            </h2>
+            <p class="card-text">
+              <strong>Start Time:</strong> <%= availability.start_time.strftime('%H:%M') %><br>
+              <strong>End Time:</strong> <%= availability.end_time.strftime('%H:%M') %><br>
+              <strong>Status:</strong> <%= availability.filled_status ? 'Filled' : 'Available' %>
+            </p>
+            <%= link_to "Show this availability", availability, class: "btn btn-secondary" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>
-
-<%= link_to "New availability", new_availability_path %>
-<%= link_to "New appointment", new_user_appointment_path(current_user) %>
-<%= link_to 'To Dashboard', user_dashboard_path(current_user) %>
-

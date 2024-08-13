@@ -11,7 +11,7 @@ RSpec.describe 'users/edit.html.erb' do
   end
 
   it 'displays the editing user header' do
-    assert_select 'h1', text: 'Editing user'
+    assert_select 'h1', text: 'Editing User'
   end
 
   it 'renders the form for editing the user' do
@@ -32,7 +32,6 @@ RSpec.describe 'users/edit.html.erb' do
   end
 
   it 'displays the links' do
-    assert_select "a[href='#{user_path(user)}']", text: 'Show this user'
-    assert_select "a[href='#{users_path}']", text: 'Back to users'
+    assert_select "a[href='#{user_path(user)}']", text: 'Back to User'
   end
 end

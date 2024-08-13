@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="en">
 <html>
   <head>
     <title>Nail Appointments</title>
@@ -7,9 +8,37 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application" %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css">
   </head>
 
   <body>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container">
+        <a class="navbar-brand" href="<%= root_path %>">Magic One Nails</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <% if current_user %>
+              <%= form_with(url: logout_path, method: :post, local: true, class: "d-inline") do |form| %>
+                <%= form.submit "Log Out", class: "nav-link" %>
+              <% end %>
+            <% else %>
+              <li class="nav-item">
+                <%= link_to 'Login', login_path, class: 'nav-link ' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'Sign Up', new_user_path, class: 'nav-link' %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+
     <%= yield %>
   </body>
 </html>

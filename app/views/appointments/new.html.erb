@@ -1,44 +1,60 @@
-<%= form_with url: new_user_appointment_path(@user), method: :get, local: true do |form| %>
-  <div>
-    <%= form.label :day, "Select Day", style: "display: block" %>
-    <%= form.date_field :day, value: @date.present? ? @date.strftime('%Y-%m-%d') : '' %>
-    <%= form.submit "Find Time Slots" %>
+<div class="container mt-4">
+  <div class="mb-4">
+    <%= link_to user_dashboard_path(@user), class: "btn btn-light text-decoration-none" do %>
+      <i class="bi bi-arrow-left"></i> Back to Dashboard
+    <% end %>
   </div>
-<% end %>
 
-<% if @date.present? %>
-  <% if @time_slots.any? %>
-    <div>
-      <h2>Available Time Slots on <%= @date.strftime('%B %d, %Y') %>:</h2>
-      <%= form_with(model: [@user, @appointment], local: true) do |form| %>
-        <%= form.hidden_field :user_id, value: current_user.id %>
+  <h1 class="text-center mb-4">New Appointment</h1>
 
-        <div>
-          <%= form.label :availability_id, "Time Slot", style: "display: block" %>
-          <%= form.select :availability_id, options_for_select(@time_slots.map { |slot| ["#{slot.start_time.strftime('%H:%M')} - #{slot.end_time.strftime('%H:%M')}", slot.id] }), { prompt: "Select Time Slot" } %>
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <%= form_with url: new_user_appointment_path(@user), method: :get, local: true, class: "mb-4" do |form| %>
+        <div class="mb-3">
+          <%= form.label :day, "Select Day", class: "form-label" %>
+          <%= form.date_field :day, value: @date.present? ? @date.strftime('%Y-%m-%d') : '', class: "form-control" %>
         </div>
-
-        <div>
-          <%= form.label :service, "Service", style: "display: block" %>
-          <%= form.text_field :service, placeholder: "Enter service type" %>
+        <div class="text-center">
+          <%= form.submit "Find Time Slots", class: "btn btn-primary" %>
         </div>
-
-        <div>
-          <%= form.label :comments, "Comments", style: "display: block" %>
-          <%= form.text_area :comments, placeholder: "Enter any additional comments" %>
-        </div>
-
-        <%= form.submit "Book Appointment" %>
       <% end %>
     </div>
-  <% else %>
-    <p>No time slots available for the selected day.</p>
+  </div>
+
+  <% if @date.present? %>
+    <% if @time_slots.any? %>
+      <div class="row justify-content-center mt-4">
+        <div class="col-md-8 col-lg-6">
+          <h2 class="text-center mb-4">Available Time Slots on <%= @date.strftime('%B %d, %Y') %>:</h2>
+          
+          <%= form_with(model: [@user, @appointment], local: true, class: "mb-4") do |form| %>
+            <%= form.hidden_field :user_id, value: current_user.id %>
+
+            <div class="mb-3">
+              <%= form.label :availability_id, "Time Slot", class: "form-label" %>
+              <%= form.select :availability_id, options_for_select(@time_slots.map { |slot| ["#{slot.start_time.strftime('%H:%M')} - #{slot.end_time.strftime('%H:%M')}", slot.id] }), { prompt: "Select Time Slot" }, class: "form-select" %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :service, "Service", class: "form-label" %>
+              <%= form.text_field :service, placeholder: "Enter service type", class: "form-control" %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :comments, "Comments", class: "form-label" %>
+              <%= form.text_area :comments, placeholder: "Enter any additional comments", class: "form-control" %>
+            </div>
+
+            <div class="text-center">
+              <%= form.submit "Book Appointment", class: "btn btn-success" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% else %>
+      <div class="alert alert-warning text-center" role="alert" style="color: #000;">
+        No time slots available for the selected day.
+      </div>
+    <% end %>
   <% end %>
-<% end %>
-
-<% if current_user.admin? %>
-  <%= link_to "Edit Availabilities", availabilities_path %>
-<% end %>
-
-<%= link_to "Show all appointments", user_appointments_path(@user) %>
-<%= link_to "Back to Dashboard", user_dashboard_path(@user) %>
+</div>

@@ -17,6 +17,6 @@ RSpec.describe 'Users' do
     fill_in 'Password', with: 'password'
     click_button 'Login'
 
-    expect(page).to have_content('Welcome Alicia')
+    expect(page).to have_content('Dashboard')
   end
 end

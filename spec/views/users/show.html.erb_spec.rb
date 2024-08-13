@@ -34,7 +34,7 @@ RSpec.describe 'users/show.html.erb' do
 
   it 'renders the edit link and other links' do
     assert_select "a[href='#{edit_user_path(user)}']", text: 'Edit this user'
-    assert_select "a[href='#{users_path}']", text: 'See all users'
+    assert_select "a[href='#{users_path}']", text: 'Back to Users'
   end
 
   it 'renders the destroy button' do

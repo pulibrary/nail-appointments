@@ -1,10 +1,18 @@
-<h1>Editing user</h1>
+<div class="container mt-4">
+  <div class="mb-4">
+    <%= link_to @user, class: "btn btn-light text-decoration-none" do %>
+      <i class="bi bi-arrow-left"></i> Back to User
+    <% end %>
+  </div>
 
-<%= render "form", user: @user %>
+  <div class="card">
+    <div class="card-header">
+      <h1 class="card-title">Editing User</h2>
+    </div>
 
-<br>
-
-<div>
-  <%= link_to "Show this user", @user %> |
-  <%= link_to "Back to users", users_path %>
+    <div class="card-body">
+      <%= render "form", user: @user %>
+    </div>
+  </div>
 </div>
+
