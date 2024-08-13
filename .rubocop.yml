@@ -12,6 +12,32 @@ AllCops:
     - 'vendor/bundle/**/*'
     - 'config/**/*'
 
+Layout/LineLength:
+  Exclude:
+    - 'app/controllers/*'
+    - 'spec/**/*'
+  
+Lint/ShadowingOuterLocalVariable:
+  Exclude:
+    - 'spec/**/*'
+
+Metrics/MethodLength:
+  Exclude:
+    - 'app/controllers/*'
+
+Rails/I18nLocaleTexts:
+  Exclude:
+    - 'app/controllers/**/*'
+    - 'app/models/**/*'
+    
+RSpec/IndexedLet:
+  Exclude:
+    - 'spec/**/*'
+
+RSpec/InstanceVariable:
+  Exclude:
+    - 'spec/**/*'
+
 RSpec/MultipleExpectations:
   Exclude:
     - 'spec/**/*'
@@ -19,6 +45,16 @@ RSpec/MultipleExpectations:
 RSpec/MultipleMemoizedHelpers:
   Exclude:
     - 'spec/models/*'
+    - 'spec/controllers/*'
 
 RSpec/ExampleLength:
   Enabled: false
+
+Style/Documentation:
+  Exclude:
+    - 'app/controllers/**/*'
+    - 'app/helpers/*'
+    - 'app/mailers/*'
+    - 'app/models/*'
+    - 'spec/**/*'
+  
