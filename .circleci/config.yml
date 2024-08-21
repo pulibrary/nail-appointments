@@ -9,8 +9,6 @@ executors:
           RAILS_ENV: test
           NAILAPP_HOST: localhost
           NAILAPP_USER: postgres
-          SOLR_URL: http://solr:SolrRocks@localhost:8983/solr/nailapp-test
-          COVERALLS_PARALLEL: true
       - image: cimg/postgres:15.4
         environment:
           POSTGRES_USER: nailapp
