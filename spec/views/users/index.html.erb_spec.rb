@@ -31,8 +31,8 @@ RSpec.describe 'users/index.html.erb' do
       assert_select 'h2.card-title', text: "#{user2.first_name} #{user2.last_name}"
       assert_select 'p.card-text', text: user2.email
 
-      assert_select 'a.btn-secondary[href=?]', user_path(user1), text: 'Show this user'
-      assert_select 'a.btn-secondary[href=?]', user_path(user2), text: 'Show this user'
+      assert_select 'a.btn[href=?]', user_path(user1), text: 'Show this user'
+      assert_select 'a.btn[href=?]', user_path(user2), text: 'Show this user'
     end
   end
 end

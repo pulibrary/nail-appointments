@@ -29,8 +29,8 @@
         <div class="card shadow-sm">
           <div class="card-body">
             <div class="d-grid gap-2">
-              <%= link_to "New Appointment", new_user_appointment_path(@user), class: "btn btn-secondary" %>
-              <%= link_to "My Appointments", user_appointments_path(@user), class: "btn btn-secondary" %>
+              <%= link_to "New Appointment", new_user_appointment_path(@user), class: "btn btn-success" %>
+              <%= link_to "My Appointments", user_appointments_path(@user), class: "btn btn-primary" %>
             </div>
           </div>
         </div>
@@ -39,7 +39,7 @@
 
     <div class="text-center">
       <%= form_with(url: logout_path, method: :post, local: true, class: "d-inline") do |form| %>
-        <%= form.submit "Log Out", class: "btn btn-danger btn-lg" %>
+        <%= form.submit "Log Out", style: "border: 2px solid blue; color: blue; font-size: 1.25rem; padding: 0.5rem 1rem;", class: "btn btn-lg" %>
       <% end %>
     </div>
 

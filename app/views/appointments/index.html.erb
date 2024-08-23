@@ -23,7 +23,7 @@
                 <strong>Start Time:</strong> <%= appointment.availability.start_time.strftime('%Y-%m-%d %H:%M:%S') %><br>
                 <strong>End Time:</strong> <%= appointment.availability.end_time.strftime('%Y-%m-%d %H:%M:%S') %>
               </p>
-              <%= link_to "Show this appointment", user_appointment_path(@user, appointment), class: "btn btn-secondary" %>
+              <%= link_to "Show this appointment", user_appointment_path(@user, appointment), class: "btn btn-outline-primary" %>
             </div>
           </div>
         </div>
